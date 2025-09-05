@@ -3,7 +3,7 @@ import type { RecipeSearchResponse } from '@/typings/services/RecipeSearchRespon
 import type { RecipeDetails } from '@/typings/services/RecipeDetails';
 import type { RecipeSearchOptions } from '@/typings/services/RecipeSearchOptions';
 
-export class RecipesService extends RequestBase {
+export default class RecipesService extends RequestBase {
   /**
    * Search for recipes by query
    * @param query - Search term
@@ -33,6 +33,14 @@ export class RecipesService extends RequestBase {
    * @param id - Recipe ID
    */
   async getRecipeDetails(id: number): Promise<RecipeDetails> {
+    return this.get<RecipeDetails>(`/recipes/${id}`);
+  }
+
+  /**
+   * Get detailed information about a specific recipe by ID
+   * @param id - Recipe ID
+   */
+  async getRecipeById(id: number): Promise<RecipeDetails> {
     return this.get<RecipeDetails>(`/recipes/${id}`);
   }
 }

@@ -22,12 +22,6 @@ const TopLevelRoutes: RouteRecord[] = [
     component: () => import('@/pages/RecipeDetails.vue'),
   },
   {
-    path: '/search',
-    name: 'SearchRecipes',
-    title: 'Search Recipes',
-    component: () => import('@/pages/SearchRecipes.vue'),
-  },
-  {
     path: '/grocery-list',
     name: 'GroceryList',
     title: 'Grocery List',
@@ -38,6 +32,13 @@ const TopLevelRoutes: RouteRecord[] = [
     name: 'SavedLists',
     title: 'Saved Lists',
     component: () => import('@/pages/SavedLists.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    title: 'Not Found',
+    hideFromNavigation: true,
+    redirect: '/'
   }
 ]
 

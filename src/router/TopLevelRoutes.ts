@@ -9,6 +9,19 @@ const TopLevelRoutes: RouteRecord[] = [
     component: () => import('@/pages/HomePage.vue'),
   },
   {
+    path: '/recipes',
+    name: 'Recipes',
+    title: 'Recipes',
+    component: () => import('@/pages/SearchRecipes.vue'),
+  },
+  {
+    path: '/recipes/:id',
+    name: 'RecipeDetails',
+    title: 'Recipe Details',
+    hideFromNavigation: true,
+    component: () => import('@/pages/RecipeDetails.vue'),
+  },
+  {
     path: '/search',
     name: 'SearchRecipes',
     title: 'Search Recipes',

@@ -30,29 +30,34 @@
 
       <div class="grocery-items">
         <div
-          v-for="item in groceryList"
-          :key="item.id"
-          class="grocery-item"
-          :class="{ 'grocery-item--checked': item.checked }"
+          v-for="group in groupedItems"
+          :key="group.aisle"
+          class="grocery-category"
         >
-          <label class="grocery-item__checkbox">
-            <input
-              type="checkbox"
-              :checked="item.checked"
-              @change="toggleItem(item.id)"
-            />
-            <span class="checkmark"></span>
-          </label>
-          
-          <div class="grocery-item__content">
-            <div class="grocery-item__name">{{ item.name }}</div>
-            <div class="grocery-item__amount">
-              {{ item.amount }} {{ item.unit }}
+          <h3 class="grocery-category__title">{{ group.aisle }}</h3>
+          <div class="grocery-category__items">
+            <div
+              v-for="item in group.items"
+              :key="item.id"
+              class="grocery-item"
+              :class="{ 'grocery-item--checked': item.checked }"
+            >
+              <label class="grocery-item__checkbox">
+                <input
+                  type="checkbox"
+                  :checked="item.checked"
+                  @change="toggleItem(item.id)"
+                />
+                <span class="checkmark"></span>
+              </label>
+              
+              <div class="grocery-item__content">
+                <div class="grocery-item__name">{{ item.name }}</div>
+                <div class="grocery-item__amount">
+                  {{ item.amount }} {{ item.unit }}
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div v-if="item.category" class="grocery-item__category">
-            {{ item.category }}
           </div>
         </div>
       </div>
@@ -89,6 +94,31 @@ const progressPercentage = computed(() => {
   return (checkedItemsCount.value / groceryList.value.length) * 100
 })
 
+// Group items by aisle
+const groupedItems = computed(() => {
+  const groups: { [key: string]: any[] } = {}
+  
+  groceryList.value.forEach(item => {
+    const aisle = item.aisle || 'Other'
+    if (!groups[aisle]) {
+      groups[aisle] = []
+    }
+    groups[aisle].push(item)
+  })
+  
+  // Sort aisles alphabetically, but put 'Other' at the end
+  const sortedAisles = Object.keys(groups).sort((a, b) => {
+    if (a === 'Other') return 1
+    if (b === 'Other') return -1
+    return a.localeCompare(b)
+  })
+  
+  return sortedAisles.map(aisle => ({
+    aisle,
+    items: groups[aisle]
+  }))
+})
+
 const toggleItem = (id: string) => {
   groceryStore.toggleItem(id)
 }
@@ -99,11 +129,12 @@ const clearList = () => {
   }
 }
 
-const saveList = () => {
+const saveList = async () => {
   try {
-    groceryStore.saveList()
+    await groceryStore.saveList()
     alert('Grocery list saved successfully!')
   } catch (error) {
+    console.error('Save error:', error)
     alert('Failed to save grocery list. Please try again.')
   }
 }
@@ -223,6 +254,29 @@ onMounted(() => {
   margin-bottom: 2rem;
 }
 
+.grocery-category {
+  &:not(:last-child) {
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  &__title {
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-primary;
+    border-bottom: 1px solid #e9ecef;
+    text-transform: capitalize;
+  }
+
+  &__items {
+    .grocery-item:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
 .grocery-item {
   display: flex;
   align-items: center;
@@ -309,14 +363,6 @@ onMounted(() => {
     color: $text-secondary;
   }
 
-  &__category {
-    background-color: #f0f0f0;
-    color: $text-secondary;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
 }
 
 .grocery-summary {

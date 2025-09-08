@@ -1,26 +1,36 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
+import { groceryListsService } from '@/services/groceryListsService'
+import type { SaveGroceryListRequest } from '@/typings/services/SaveGroceryListRequest'
+import type { GroceryItem } from '@/typings/services/GroceryItem'
+import type { SpoonacularIngredient } from '@/typings/services/SpoonacularIngredient'
 
-interface GroceryItem {
-  id: string
-  name: string
-  amount: string
-  unit: string
-  checked: boolean
-  category?: string
-}
+
 
 export const useGroceryStore = defineStore('grocery', () => {
   const groceryList = ref<GroceryItem[]>([])
 
-  const addIngredients = (ingredients: any[]) => {
+  // Watch for changes to groceryList and automatically save to localStorage
+  watch(groceryList, (newList) => {
+    try {
+      const listData = {
+        items: newList,
+        savedAt: new Date().toISOString()
+      }
+      localStorage.setItem('groceryList', JSON.stringify(listData))
+    } catch (error) {
+      console.error('Error saving grocery list to localStorage:', error)
+    }
+  }, { deep: true })
+
+  const addIngredients = (ingredients: (SpoonacularIngredient | any)[]) => {    
     const newItems: GroceryItem[] = ingredients.map((ingredient, index) => ({
       id: `ingredient-${Date.now()}-${index}`,
-      name: ingredient.name || ingredient.original || 'Unknown ingredient',
+      name: ingredient.nameClean || ingredient.name || ingredient.original || 'Unknown ingredient',
       amount: ingredient.amount?.toString() || '1',
       unit: ingredient.unit || '',
       checked: false,
-      category: ingredient.category || 'Other'
+      aisle: ingredient.aisle || 'Other'
     }))
     
     groceryList.value.push(...newItems)
@@ -35,16 +45,25 @@ export const useGroceryStore = defineStore('grocery', () => {
 
   const clearList = () => {
     groceryList.value = []
+    // Also clear from localStorage to persist the change
+    localStorage.removeItem('groceryList')
   }
 
-  const saveList = () => {
+  const saveList = async () => {
     try {
-      const listData = {
+      const listData: SaveGroceryListRequest = {
         items: groceryList.value,
         savedAt: new Date().toISOString()
       }
-      localStorage.setItem('groceryList', JSON.stringify(listData))
-      console.log('Grocery list saved successfully')
+      
+      const response = await groceryListsService.saveGroceryList(listData)
+      
+      if (response.success) {
+        console.log('Grocery list saved successfully:', response.data)
+        return response.data
+      } else {
+        throw new Error(response.message || 'Failed to save grocery list')
+      }
     } catch (error) {
       console.error('Error saving grocery list:', error)
       throw error

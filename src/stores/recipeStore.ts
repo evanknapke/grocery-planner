@@ -13,7 +13,11 @@ export const useRecipeStore = defineStore('recipe', () => {
   const searchRecipes = async (query: string) => {
     try {
       const response = await recipesService.searchRecipes(query)
-      recipes.value = response.results
+      if (response.success && response.data) {
+        recipes.value = response.data.results
+      } else {
+        throw new Error(response.message || 'Failed to search recipes')
+      }
     } catch (error) {
       console.error('Error searching recipes:', error)
       throw error
@@ -22,9 +26,13 @@ export const useRecipeStore = defineStore('recipe', () => {
 
   const getRecipeById = async (id: number) => {
     try {
-      const recipe = await recipesService.getRecipeById(id)
-      selectedRecipe.value = recipe
-      return recipe
+      const response = await recipesService.getRecipeById(id)
+      if (response.success && response.data) {
+        selectedRecipe.value = response.data
+        return response.data
+      } else {
+        throw new Error(response.message || 'Failed to fetch recipe')
+      }
     } catch (error) {
       console.error('Error fetching recipe by ID:', error)
       throw error

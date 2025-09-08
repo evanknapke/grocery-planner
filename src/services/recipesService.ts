@@ -2,6 +2,7 @@ import { RequestBase } from './requestBase';
 import type { RecipeSearchResponse } from '@/typings/services/RecipeSearchResponse';
 import type { RecipeDetails } from '@/typings/services/RecipeDetails';
 import type { RecipeSearchOptions } from '@/typings/services/RecipeSearchOptions';
+import type { ApiResponse } from '@/typings/services/ApiResponse';
 
 export default class RecipesService extends RequestBase {
   /**
@@ -12,7 +13,7 @@ export default class RecipesService extends RequestBase {
   async searchRecipes(
     query: string,
     options?: RecipeSearchOptions
-  ): Promise<RecipeSearchResponse> {
+  ): Promise<ApiResponse<RecipeSearchResponse>> {
     const params = new URLSearchParams({
       query,
       ...(options?.number && { number: options.number.toString() }),
@@ -32,7 +33,7 @@ export default class RecipesService extends RequestBase {
    * Get detailed information about a specific recipe
    * @param id - Recipe ID
    */
-  async getRecipeDetails(id: number): Promise<RecipeDetails> {
+  async getRecipeDetails(id: number): Promise<ApiResponse<RecipeDetails>> {
     return this.get<RecipeDetails>(`/recipes/${id}`);
   }
 
@@ -40,7 +41,7 @@ export default class RecipesService extends RequestBase {
    * Get detailed information about a specific recipe by ID
    * @param id - Recipe ID
    */
-  async getRecipeById(id: number): Promise<RecipeDetails> {
+  async getRecipeById(id: number): Promise<ApiResponse<RecipeDetails>> {
     return this.get<RecipeDetails>(`/recipes/${id}`);
   }
 }

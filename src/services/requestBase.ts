@@ -1,6 +1,7 @@
 
 import type { AxiosResponse, AxiosRequestConfig } from 'axios';
 import apiClient from './apiClient';
+import type { ApiResponse } from '@/typings/services/ApiResponse';
 
 /**
  * Base API client class that provides common HTTP methods
@@ -12,8 +13,8 @@ export class RequestBase {
    * @param url - Request URL
    * @param config - Axios request configuration
    */
-  protected async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await apiClient.get(url, config);
+  protected async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.get(url, config);
     return response.data;
   }
 
@@ -27,8 +28,8 @@ export class RequestBase {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<T> {
-    const response: AxiosResponse<T> = await apiClient.post(url, data, config);
+  ): Promise<ApiResponse<T>> {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.post(url, data, config);
     return response.data;
   }
 
@@ -42,8 +43,8 @@ export class RequestBase {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<T> {
-    const response: AxiosResponse<T> = await apiClient.put(url, data, config);
+  ): Promise<ApiResponse<T>> {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.put(url, data, config);
     return response.data;
   }
 
@@ -52,8 +53,8 @@ export class RequestBase {
    * @param url - Request URL
    * @param config - Axios request configuration
    */
-  protected async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response: AxiosResponse<T> = await apiClient.delete(url, config);
+  protected async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.delete(url, config);
     return response.data;
   }
 }
@@ -65,8 +66,8 @@ export const httpClient = {
    * @param url - Request URL
    * @param config - Axios request configuration
    */
-  get: async <T = any>(url: string, config?: AxiosRequestConfig): Promise<T> => {
-    const response: AxiosResponse<T> = await apiClient.get(url, config);
+  get: async <T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.get(url, config);
     return response.data;
   },
 
@@ -80,8 +81,8 @@ export const httpClient = {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<T> => {
-    const response: AxiosResponse<T> = await apiClient.post(url, data, config);
+  ): Promise<ApiResponse<T>> => {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.post(url, data, config);
     return response.data;
   },
 
@@ -95,8 +96,8 @@ export const httpClient = {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<T> => {
-    const response: AxiosResponse<T> = await apiClient.put(url, data, config);
+  ): Promise<ApiResponse<T>> => {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.put(url, data, config);
     return response.data;
   },
 
@@ -105,8 +106,8 @@ export const httpClient = {
    * @param url - Request URL
    * @param config - Axios request configuration
    */
-  delete: async <T = any>(url: string, config?: AxiosRequestConfig): Promise<T> => {
-    const response: AxiosResponse<T> = await apiClient.delete(url, config);
+  delete: async <T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> => {
+    const response: AxiosResponse<ApiResponse<T>> = await apiClient.delete(url, config);
     return response.data;
   },
 };

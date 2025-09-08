@@ -83,9 +83,17 @@ const goBack = () => {
 }
 
 const generateGroceryList = () => {
-  if (!recipe.value?.extendedIngredients) return
+  console.log('=== GENERATE GROCERY LIST CLICKED ===')
+  console.log('Recipe data:', recipe.value)
+  console.log('Extended ingredients:', recipe.value?.extendedIngredients)
+  
+  if (!recipe.value?.extendedIngredients) {
+    console.log('No extended ingredients found!')
+    return
+  }
   
   try {
+    console.log('Calling groceryStore.addIngredients with:', recipe.value.extendedIngredients.length, 'ingredients')
     groceryStore.addIngredients(recipe.value.extendedIngredients)
     showSuccessMessage.value = true
     

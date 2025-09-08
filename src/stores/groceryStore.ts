@@ -83,12 +83,31 @@ export const useGroceryStore = defineStore('grocery', () => {
     }
   }
 
+  const loadSavedList = async (listId: string) => {
+    try {
+      console.log('Loading saved list with ID:', listId)
+      const response = await groceryListsService.getGroceryList(listId)
+      
+      if (response.success && response.data) {
+        groceryList.value = response.data.items
+        console.log('Saved grocery list loaded successfully:', response.data.name)
+        return response.data
+      } else {
+        throw new Error(response.message || 'Failed to load saved grocery list')
+      }
+    } catch (error) {
+      console.error('Error loading saved grocery list:', error)
+      throw error
+    }
+  }
+
   return {
     groceryList,
     addIngredients,
     toggleItem,
     clearList,
     saveList,
-    loadList
+    loadList,
+    loadSavedList
   }
 })

@@ -20,15 +20,16 @@
         </span>
       </div>
       <p class="recipe-card__summary" v-html="recipe.summary"></p>
-      <button class="recipe-card__button">
+      <VButton variant="outline" class="recipe-card__button">
         View Details
-      </button>
+      </VButton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { RecipeSearchResult } from '@/typings/services/RecipeSearchResult'
+import VButton from '@/components/ui/VButton.vue'
 
 const props = defineProps<{
   recipe: RecipeSearchResult

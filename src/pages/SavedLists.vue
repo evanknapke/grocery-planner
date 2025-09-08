@@ -13,9 +13,9 @@
     <!-- Error state -->
     <div v-else-if="error" class="saved-lists__error">
       <p>{{ error }}</p>
-      <button @click="fetchSavedLists" class="btn btn--secondary">
+      <VButton @click="fetchSavedLists" variant="secondary">
         Try Again
-      </button>
+      </VButton>
     </div>
 
     <!-- Empty state -->
@@ -47,13 +47,13 @@
         </div>
 
         <div class="saved-list-card__actions">
-          <button 
+          <VButton 
             @click="loadList(list.id)" 
-            class="btn btn--primary"
+            variant="primary"
             :disabled="loadingList"
           >
             {{ loadingList ? 'Loading...' : 'Load List' }}
-          </button>
+          </VButton>
         </div>
       </div>
     </div>
@@ -66,6 +66,7 @@ import { useRouter } from 'vue-router'
 import { groceryListsService } from '@/services/groceryListsService'
 import { useGroceryStore } from '@/stores/groceryStore'
 import type { GroceryList } from '@/typings/services/GroceryList'
+import VButton from '@/components/ui/VButton.vue'
 
 const router = useRouter()
 const groceryStore = useGroceryStore()

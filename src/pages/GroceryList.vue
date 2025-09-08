@@ -20,12 +20,12 @@
 
     <div v-else class="grocery-content">
       <div class="grocery-actions">
-        <button @click="clearList" class="action-button action-button--danger">
+        <VButton @click="clearList" variant="destructive">
           Clear All
-        </button>
-        <button @click="saveList" class="action-button action-button--primary">
+        </VButton>
+        <VButton @click="saveList" variant="primary">
           Save List
-        </button>
+        </VButton>
       </div>
 
       <div class="grocery-items">
@@ -80,6 +80,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useGroceryStore } from '@/stores/groceryStore'
+import VButton from '@/components/ui/VButton.vue'
 
 const groceryStore = useGroceryStore()
 

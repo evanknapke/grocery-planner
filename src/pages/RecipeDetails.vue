@@ -6,16 +6,16 @@
 
     <div v-else-if="error" class="error">
       <p>{{ error }}</p>
-      <button @click="goBack" class="back-button">Go Back</button>
+      <VButton @click="goBack" variant="outline">Go Back</VButton>
     </div>
 
     <div v-if="showSuccessMessage" class="success-message">
       <p>✅ Ingredients added to your grocery list!</p>
     </div>
     <div v-else-if="recipe" class="recipe-content">
-      <button @click="goBack" class="back-button">
+      <VButton @click="goBack" variant="outline">
         ← Back to Search
-      </button>
+      </VButton>
       <RecipeHeader :recipe="recipe" />
       <div class="recipe-body">
         <RecipeSummary :summary="recipe.summary" />
@@ -43,6 +43,7 @@ import RecipeSummary from '@/components/recipe/RecipeSummary.vue'
 import IngredientsList from '@/components/recipe/IngredientsList.vue'
 import Instructions from '@/components/recipe/Instructions.vue'
 import RecipeSource from '@/components/recipe/RecipeSource.vue'
+import VButton from '@/components/ui/VButton.vue'
 import GroceryActions from '@/components/recipe/GroceryActions.vue'
 
 const route = useRoute()

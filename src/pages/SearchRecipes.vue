@@ -16,14 +16,14 @@
           class="search-input__field"
           @keyup.enter="handleSearch"
         />
-        <button
+        <VButton
           @click="handleSearch"
-          class="search-input__button"
+          variant="primary"
           :disabled="isLoading"
         >
           <span v-if="isLoading">Searching...</span>
           <span v-else>Search</span>
-        </button>
+        </VButton>
       </div>
     </div>
 
@@ -51,6 +51,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useRecipeStore } from '@/stores/recipeStore'
 import RecipeCard from '@/components/RecipeCard.vue'
+import VButton from '@/components/ui/VButton.vue'
 
 const router = useRouter()
 const recipeStore = useRecipeStore()
@@ -133,26 +134,6 @@ const viewRecipeDetails = (recipeId: number) => {
     }
   }
 
-  &__button {
-    padding: 1rem 2rem;
-    background-color: $primary-color;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover:not(:disabled) {
-      background-color: darken($primary-color, 10%);
-    }
-
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  }
 }
 
 .error-message {

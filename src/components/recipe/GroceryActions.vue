@@ -2,22 +2,22 @@
   <div class="recipe-section">
     <h2>Grocery List</h2>
     <div class="grocery-actions">
-      <button 
+      <VButton 
         @click="emit('generate-grocery-list')" 
-        class="grocery-button"
+        variant="primary"
         :disabled="!hasIngredients"
       >
         <span class="grocery-button__icon">🛒</span>
         Generate Grocery List
-      </button>
-      <button 
+      </VButton>
+      <VButton 
         @click="emit('go-to-grocery-list')" 
-        class="grocery-button grocery-button--secondary"
+        variant="secondary"
         v-if="groceryList.length > 0"
       >
         <span class="grocery-button__icon">📋</span>
         View Grocery List ({{ groceryList.length }} items)
-      </button>
+      </VButton>
     </div>
     <p class="grocery-help-text">
       Add all ingredients from this recipe to your grocery list for easy shopping.
@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import VButton from '@/components/ui/VButton.vue'
 
 // TODO: Figure out types for ingredients and groceryList
 const props = defineProps<{

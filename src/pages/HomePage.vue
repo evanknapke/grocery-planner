@@ -7,7 +7,7 @@
         create organized grocery lists, and save time in the kitchen.
       </p>
       <div class="home__actions">
-        <router-link to="/search" class="btn btn-primary home__cta">
+        <router-link to="/recipes" class="btn btn-primary home__cta">
           Browse Recipes
         </router-link>
       </div>

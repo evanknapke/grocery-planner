@@ -52,6 +52,27 @@ $error-color: #F44336;
   --surface: #{$surface};
   --border: #{$border};
   
+  // Design system colors for components
+  --background: #{$background};
+  --foreground: #{$text-primary};
+  --card: #{$surface};
+  --card-foreground: #{$text-primary};
+  --popover: #{$surface};
+  --popover-foreground: #{$text-primary};
+  --primary: #{$primary-color};
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #{$text-primary};
+  --muted: #f1f5f9;
+  --muted-foreground: #{$text-secondary};
+  --accent: #f1f5f9;
+  --accent-foreground: #{$text-primary};
+  --destructive: #{$error-color};
+  --destructive-foreground: #ffffff;
+  --border: #{$border};
+  --input: #{$border};
+  --ring: #{$primary-color};
+  
   // Spacing
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;

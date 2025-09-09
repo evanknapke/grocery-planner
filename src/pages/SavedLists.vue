@@ -1,53 +1,91 @@
 <template>
   <div class="saved-lists">
-    <h2 class="saved-lists__title">Saved Lists</h2>
-    <p class="saved-lists__description">
-      View and manage your previously saved grocery lists.
-    </p>
-
-    <!-- Error state -->
-    <div v-if="error" class="saved-lists__error">
-      <p>{{ error }}</p>
-      <VButton @click="fetchSavedLists" variant="secondary">
-        Try Again
-      </VButton>
-    </div>
-
-    <!-- Empty state -->
-    <div v-else-if="savedLists.length === 0" class="saved-lists__empty">
-      <p>No saved lists found. Create your first grocery list to get started!</p>
-    </div>
-
-    <!-- Lists display -->
-    <div v-else class="saved-lists__grid">
-      <div 
-        v-for="list in savedLists" 
-        :key="list.id" 
-        class="saved-list-card"
-      >
-        <div class="saved-list-card__header">
-          <h3 class="saved-list-card__title">{{ list.name }}</h3>
-          <span class="saved-list-card__item-count">
-            {{ list.items.length }} items
-          </span>
-        </div>
-        
-        <div class="saved-list-card__meta">
-          <p class="saved-list-card__date">
-            Saved: {{ formatDate(list.savedAt) }}
-          </p>
-          <p class="saved-list-card__created">
-            Created: {{ formatDate(list.createdAt) }}
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-content">
+        <div class="header-icon">📋</div>
+        <div class="header-text">
+          <h1 class="page-title">Saved Lists</h1>
+          <p class="page-description">
+            View and manage your previously saved grocery lists.
           </p>
         </div>
+      </div>
+    </div>
 
-        <div class="saved-list-card__actions">
-          <VButton 
-            @click="loadList(list.id)" 
-            variant="primary"
-          >
-            Load List
-          </VButton>
+    <!-- Error State -->
+    <div v-if="error" class="error-container">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h2>Oops! Something went wrong</h2>
+        <p>{{ error }}</p>
+        <VButton @click="fetchSavedLists" variant="outline" class="error-button">
+          Try Again
+        </VButton>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div v-else-if="savedLists.length === 0" class="empty-container">
+      <div class="empty-card">
+        <div class="empty-icon">📝</div>
+        <h2>No Saved Lists Yet</h2>
+        <p>Create your first grocery list to get started! Your saved lists will appear here.</p>
+        <VButton @click="$router.push('/grocery-list')" variant="primary" class="empty-button">
+          Create New List
+        </VButton>
+      </div>
+    </div>
+
+    <!-- Lists Grid -->
+    <div v-else class="lists-container">
+      <div class="lists-grid">
+        <div 
+          v-for="list in savedLists" 
+          :key="list.id" 
+          class="list-card"
+        >
+          <div class="list-card-header">
+            <div class="list-icon">🛒</div>
+            <div class="list-info">
+              <h3 class="list-title">{{ list.name }}</h3>
+              <div class="list-meta">
+                <span class="item-count">{{ list.items.length }} items</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="list-dates">
+            <div class="date-item">
+              <div class="date-icon">💾</div>
+              <div class="date-content">
+                <span class="date-label">Saved</span>
+                <span class="date-value">{{ formatDate(list.savedAt) }}</span>
+              </div>
+            </div>
+            <div class="date-item">
+              <div class="date-icon">📅</div>
+              <div class="date-content">
+                <span class="date-label">Created</span>
+                <span class="date-value">{{ formatDate(list.createdAt) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-actions">
+            <VButton 
+              @click="loadList(list.id)" 
+              variant="primary"
+              class="load-button"
+            >
+              <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Load List
+            </VButton>
+          </div>
         </div>
       </div>
     </div>
@@ -128,123 +166,301 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .saved-lists {
-  &__title {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: $primary-color;
-  }
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 0 2rem 4rem;
 
-  &__description {
-    color: $text-secondary;
-    margin-bottom: 2rem;
-  }
-
-  &__loading,
-  &__error,
-  &__empty {
-    text-align: center;
-    padding: 2rem;
-    color: $text-secondary;
-  }
-
-  &__error {
-    color: $error-color;
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+  @media (max-width: 768px) {
+    padding: 0 1rem 2rem;
   }
 }
 
-.saved-list-card {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid $border-color;
-  transition: box-shadow 0.2s ease;
+// Page Header
+.page-header {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
 
-  &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  @media (max-width: 768px) {
+    padding: 1rem 0 2rem;
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .header-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
   }
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  .header-text {
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      color: $text-primary;
+      background: linear-gradient(135deg, $text-primary, $primary-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    .page-description {
+      font-size: 1.1rem;
+      color: $text-secondary;
+      margin: 0;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Error State
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.error-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: $shadow-xl;
+  max-width: 500px;
+  width: 100%;
+
+  .error-icon {
+    font-size: 3rem;
     margin-bottom: 1rem;
   }
 
-  &__title {
-    font-size: 1.2rem;
+  h2 {
+    font-size: 1.5rem;
     font-weight: 600;
     color: $text-primary;
-    margin: 0;
-    flex: 1;
+    margin-bottom: 1rem;
   }
 
-  &__item-count {
-    background: $primary-color;
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    margin-left: 1rem;
-  }
-
-  &__meta {
-    margin-bottom: 1.5rem;
-  }
-
-  &__date,
-  &__created {
-    font-size: 0.9rem;
+  p {
     color: $text-secondary;
-    margin: 0.25rem 0;
+    margin-bottom: 2rem;
+    line-height: 1.6;
   }
 
-  &__actions {
-    display: flex;
-    gap: 0.5rem;
+  .error-button {
+    margin-top: 1rem;
   }
 }
 
-.btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
+// Empty State
+.empty-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.empty-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  padding: 3rem;
   text-align: center;
+  box-shadow: $shadow-xl;
+  max-width: 500px;
+  width: 100%;
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
   }
 
-  &--primary {
-    background: $primary-color;
-    color: white;
-
-    &:hover:not(:disabled) {
-      background: darken($primary-color, 10%);
-    }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1rem;
   }
 
-  &--secondary {
-    background: $text-secondary;
-    color: white;
+  p {
+    color: $text-secondary;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
 
-    &:hover:not(:disabled) {
-      background: darken($text-secondary, 10%);
+  .empty-button {
+    margin-top: 1rem;
+  }
+}
+
+// Lists Container
+.lists-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+// List Cards
+.list-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  padding: 2rem;
+  box-shadow: $shadow-md;
+  border: 1px solid $border;
+  transition: all $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-4px);
+  }
+}
+
+.list-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .list-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .list-info {
+    flex: 1;
+
+    .list-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.3;
     }
+
+    .list-meta {
+      .item-count {
+        background: linear-gradient(135deg, $primary-color, $primary-dark);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: $border-radius-md;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.list-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.date-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: $border-radius-md;
+  border: 1px solid $border;
+
+  .date-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .date-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+
+    .date-label {
+      font-size: 0.75rem;
+      color: $text-secondary;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .date-value {
+      font-size: 0.9rem;
+      color: $text-primary;
+      font-weight: 500;
+    }
+  }
+}
+
+.list-actions {
+  .load-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+
+    .button-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .list-card {
+    padding: 1.5rem;
+  }
+  
+  .list-card-header {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    
+    .list-icon {
+      font-size: 1.5rem;
+    }
+    
+    .list-info .list-title {
+      font-size: 1.125rem;
+    }
+  }
+  
+  .list-dates {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .date-item {
+    padding: 0.5rem;
+    gap: 0.5rem;
   }
 }
 </style>

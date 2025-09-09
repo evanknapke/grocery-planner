@@ -23,6 +23,5 @@ export const config = {
 
 // Validate required configuration
 if (!config.spoonacular.apiKey) {
-  console.error('SPOONACULAR_API_KEY is required. Please set it in your .env file.');
   process.exit(1);
 }

@@ -27,8 +27,6 @@ router.get('/search', async (req, res) => {
     });
 
     const spoonacularUrl = `${config.spoonacular.baseUrl}/recipes/complexSearch?${spoonacularParams.toString()}`;
-    
-    console.log('Proxying request to:', spoonacularUrl.replace(config.spoonacular.apiKey!, '***'));
 
     const response = await axios.get(spoonacularUrl);
     res.json({
@@ -37,8 +35,6 @@ router.get('/search', async (req, res) => {
       message: 'Recipes retrieved successfully'
     });
   } catch (error) {
-    console.error('Error searching recipes:', error);
-    
     if (axios.isAxiosError(error)) {
       const status = error.response?.status || 500;
       const message = error.response?.data?.message || 'Failed to search recipes';
@@ -75,8 +71,6 @@ router.get('/:id', async (req, res) => {
     });
 
     const spoonacularUrl = `${config.spoonacular.baseUrl}/recipes/${id}/information?${spoonacularParams.toString()}`;
-    
-    console.log('Proxying request to:', spoonacularUrl.replace(config.spoonacular.apiKey!, '***'));
 
     const response = await axios.get(spoonacularUrl);
     res.json({
@@ -85,8 +79,6 @@ router.get('/:id', async (req, res) => {
       message: 'Recipe details retrieved successfully'
     });
   } catch (error) {
-    console.error('Error fetching recipe details:', error);
-    
     if (axios.isAxiosError(error)) {
       const status = error.response?.status || 500;
       const message = error.response?.data?.message || 'Failed to fetch recipe details';

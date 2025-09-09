@@ -93,7 +93,6 @@ const loadRecipe = async () => {
     })
   } catch (err) {
     error.value = 'Failed to load recipe details. Please try again.'
-    console.error('Recipe loading error:', err)
     toastStore.error('Error', 'Failed to load recipe details. Please try again.', 6000)
   }
 }
@@ -103,22 +102,15 @@ const goBack = () => {
 }
 
 const generateGroceryList = () => {
-  console.log('=== GENERATE GROCERY LIST CLICKED ===')
-  console.log('Recipe data:', recipe.value)
-  console.log('Extended ingredients:', recipe.value?.extendedIngredients)
-  
   if (!recipe.value?.extendedIngredients) {
-    console.log('No extended ingredients found!')
     return
   }
   
   try {
-    console.log('Calling groceryStore.addIngredients with:', recipe.value.extendedIngredients.length, 'ingredients')
     groceryStore.addIngredients(recipe.value.extendedIngredients)
     
     toastStore.success('Success!', 'Ingredients added to your grocery list!', 4000)
   } catch (err) {
-    console.error('Error adding ingredients to grocery list:', err)
     toastStore.error('Error', 'Failed to add ingredients to grocery list. Please try again.', 6000)
   }
 }

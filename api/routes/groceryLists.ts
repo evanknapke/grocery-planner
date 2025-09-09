@@ -15,7 +15,6 @@ router.get('/', (req: Request, res: Response) => {
       count: savedLists.length
     });
   } catch (error) {
-    console.error('Error fetching grocery lists:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to fetch grocery lists'
@@ -51,7 +50,6 @@ router.post('/', (req: Request, res: Response) => {
       message: 'Grocery list saved successfully'
     });
   } catch (error) {
-    console.error('Error saving grocery list:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to save grocery list'
@@ -77,7 +75,6 @@ router.get('/:id', (req: Request, res: Response) => {
       data: list
     });
   } catch (error) {
-    console.error('Error fetching grocery list:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to fetch grocery list'
@@ -105,7 +102,6 @@ router.delete('/:id', (req: Request, res: Response) => {
       message: 'Grocery list deleted successfully'
     });
   } catch (error) {
-    console.error('Error deleting grocery list:', error);
     res.status(500).json({
       success: false,
       message: 'Failed to delete grocery list'

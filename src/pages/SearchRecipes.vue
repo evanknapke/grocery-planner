@@ -9,12 +9,12 @@
 
     <div class="search-recipes__search">
       <div class="search-input">
-        <input
+        <VShortTextField
           v-model="searchQuery"
-          type="text"
+          type="search"
           placeholder="Search for recipes..."
-          class="search-input__field"
-          @keyup.enter="handleSearch"
+          size="lg"
+          @enter="handleSearch"
         />
         <VButton
           @click="handleSearch"
@@ -51,6 +51,7 @@ import { useRecipeStore } from '@/stores/recipeStore'
 import { useLoadingStore } from '@/stores/loadingStore'
 import RecipeCard from '@/components/RecipeCard.vue'
 import VButton from '@/components/ui/VButton.vue'
+import VShortTextField from '@/components/ui/VShortTextField.vue'
 
 const router = useRouter()
 const recipeStore = useRecipeStore()
@@ -117,21 +118,6 @@ const viewRecipeDetails = (recipeId: number) => {
   gap: 1rem;
   max-width: 600px;
   margin: 0 auto;
-
-  &__field {
-    flex: 1;
-    padding: 1rem;
-    border: 2px solid #e1e5e9;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: $primary-color;
-    }
-  }
-
 }
 
 .error-message {

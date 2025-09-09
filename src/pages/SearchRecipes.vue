@@ -1,5 +1,5 @@
 <template>
-  <div class="search-recipes">
+  <div class="search-recipes" :class="{ 'search-recipes--has-results': recipes.length > 0 || hasSearched }">
     <div class="search-recipes__header">
       <h2 class="search-recipes__title">Search Recipes</h2>
       <p class="search-recipes__description">
@@ -19,6 +19,7 @@
         <VButton
           @click="handleSearch"
           variant="primary"
+          size="lg"
         >
           Search
         </VButton>
@@ -89,6 +90,11 @@ const viewRecipeDetails = (recipeId: number) => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 15vh;
 
   &__header {
     text-align: center;
@@ -110,14 +116,25 @@ const viewRecipeDetails = (recipeId: number) => {
 
   &__search {
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  // When there are results, move content to top
+  &--has-results {
+    justify-content: flex-start;
+    min-height: auto;
+    padding-top: 2rem;
   }
 }
 
 .search-input {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
   max-width: 600px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .error-message {
@@ -142,5 +159,4 @@ const viewRecipeDetails = (recipeId: number) => {
   gap: 2rem;
   margin-top: 2rem;
 }
-
 </style>

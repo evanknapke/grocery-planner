@@ -87,30 +87,6 @@
       cancel-text="Cancel"
       @confirm="confirmClearList"
     />
-
-    <!-- Success Modal -->
-    <VModal
-      v-model="showSuccessModal"
-      title="Success!"
-      message="Grocery list saved successfully!"
-      type="success"
-      icon="check"
-      :show-cancel-button="false"
-      confirm-text="OK"
-      @confirm="showSuccessModal = false"
-    />
-
-    <!-- Error Modal -->
-    <VModal
-      v-model="showErrorModal"
-      title="Error"
-      :message="errorMessage"
-      type="error"
-      icon="alertCircle"
-      :show-cancel-button="false"
-      confirm-text="OK"
-      @confirm="showErrorModal = false"
-    />
   </div>
 </template>
 
@@ -118,18 +94,17 @@
 import { computed, onMounted, ref } from 'vue'
 import { useGroceryStore } from '@/stores/groceryStore'
 import { useLoadingStore } from '@/stores/loadingStore'
+import { useToastStore } from '@/stores/toastStore'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
 import VModal from '@/components/ui/VModal.vue'
 
 const groceryStore = useGroceryStore()
 const loadingStore = useLoadingStore()
+const toastStore = useToastStore()
 
-// Modal state
+// Modal state (keeping only the confirmation modal)
 const showClearConfirmModal = ref(false)
-const showSuccessModal = ref(false)
-const showErrorModal = ref(false)
-const errorMessage = ref('')
 
 const groceryList = computed(() => groceryStore.groceryList)
 
@@ -178,6 +153,7 @@ const clearList = () => {
 const confirmClearList = () => {
   groceryStore.clearList()
   showClearConfirmModal.value = false
+  toastStore.success('List Cleared', 'Grocery list cleared successfully!', 3000)
 }
 
 const saveList = async () => {
@@ -185,11 +161,10 @@ const saveList = async () => {
     await loadingStore.loadUntilResolved(async () => {
       return await groceryStore.saveList()
     })
-    showSuccessModal.value = true
+    toastStore.success('Success!', 'Grocery list saved successfully!', 4000)
   } catch (error) {
     console.error('Save error:', error)
-    errorMessage.value = 'Failed to save grocery list. Please try again.'
-    showErrorModal.value = true
+    toastStore.error('Error', 'Failed to save grocery list. Please try again.', 6000)
   }
 }
 

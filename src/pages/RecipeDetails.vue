@@ -12,13 +12,6 @@
       </div>
     </div>
 
-    <!-- Success Message -->
-    <div v-if="showSuccessMessage" class="success-toast">
-      <div class="success-content">
-        <VIcon name="check" class="success-icon" />
-        <span>Ingredients added to your grocery list!</span>
-      </div>
-    </div>
 
     <!-- Main Recipe Content -->
     <div v-else-if="recipe" class="recipe-content">
@@ -62,6 +55,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useRecipeStore } from '@/stores/recipeStore'
 import { useGroceryStore } from '@/stores/groceryStore'
 import { useLoadingStore } from '@/stores/loadingStore'
+import { useToastStore } from '@/stores/toastStore'
 import RecipeHeader from '@/components/recipe/RecipeHeader.vue'
 import RecipeSummary from '@/components/recipe/RecipeSummary.vue'
 import IngredientsList from '@/components/recipe/IngredientsList.vue'
@@ -76,9 +70,9 @@ const router = useRouter()
 const recipeStore = useRecipeStore()
 const groceryStore = useGroceryStore()
 const loadingStore = useLoadingStore()
+const toastStore = useToastStore()
 
 const error = ref('')
-const showSuccessMessage = ref(false)
 
 const recipe = computed(() => recipeStore.selectedRecipe)
 const groceryList = computed(() => groceryStore.groceryList)
@@ -100,6 +94,7 @@ const loadRecipe = async () => {
   } catch (err) {
     error.value = 'Failed to load recipe details. Please try again.'
     console.error('Recipe loading error:', err)
+    toastStore.error('Error', 'Failed to load recipe details. Please try again.', 6000)
   }
 }
 
@@ -120,14 +115,11 @@ const generateGroceryList = () => {
   try {
     console.log('Calling groceryStore.addIngredients with:', recipe.value.extendedIngredients.length, 'ingredients')
     groceryStore.addIngredients(recipe.value.extendedIngredients)
-    showSuccessMessage.value = true
     
-    setTimeout(() => {
-      showSuccessMessage.value = false
-    }, 3000)
+    toastStore.success('Success!', 'Ingredients added to your grocery list!', 4000)
   } catch (err) {
     console.error('Error adding ingredients to grocery list:', err)
-    error.value = 'Failed to add ingredients to grocery list. Please try again.'
+    toastStore.error('Error', 'Failed to add ingredients to grocery list. Please try again.', 6000)
   }
 }
 

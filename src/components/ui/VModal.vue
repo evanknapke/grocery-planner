@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, nextTick } from 'vue'
+import { computed, ref, watch, nextTick, useSlots } from 'vue'
 import VButton from './VButton.vue'
 import VIcon from './VIcon.vue'
 
@@ -159,8 +159,10 @@ const isOpen = computed({
   set: (value) => emit('update:modelValue', value)
 })
 
+const slots = useSlots()
+
 const showHeader = computed(() => props.title || props.icon || props.closable)
-const showFooter = computed(() => props.showCancelButton || props.showConfirmButton || !!$slots.footer)
+const showFooter = computed(() => props.showCancelButton || props.showConfirmButton || !!slots.footer)
 
 const modalClasses = computed(() => {
   const baseClasses = 'v-modal'

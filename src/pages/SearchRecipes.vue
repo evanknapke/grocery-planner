@@ -51,7 +51,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useRecipeStore } from '@/stores/recipeStore'
 import { useLoadingStore } from '@/stores/loadingStore'
-import RecipeCard from '@/components/RecipeCard.vue'
+import RecipeCard from '@/components/recipe/RecipeCard.vue'
 import VButton from '@/components/ui/VButton.vue'
 import VShortTextField from '@/components/ui/VShortTextField.vue'
 

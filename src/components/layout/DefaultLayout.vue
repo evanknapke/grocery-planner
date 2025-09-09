@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import MainNavigation from './MainNavigation.vue'
+import MainNavigation from '../navigation/MainNavigation.vue'
 </script>
 
 <style lang="scss" scoped>

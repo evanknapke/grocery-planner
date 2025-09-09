@@ -54,56 +54,14 @@
           </div>
         </div>
         
-        <!-- Toast Demo Section (for development/testing) -->
-        <div v-if="showToastDemo" class="home__toast-demo">
-          <h3 class="home__demo-title">Toast Notifications Demo</h3>
-          <p class="home__demo-description">Test the different toast notification variants:</p>
-          <div class="home__demo-buttons">
-            <VButton @click="showSuccessToast" variant="primary" size="sm">
-              Success Toast
-            </VButton>
-            <VButton @click="showErrorToast" variant="destructive" size="sm">
-              Error Toast
-            </VButton>
-            <VButton @click="showWarningToast" variant="outline" size="sm">
-              Warning Toast
-            </VButton>
-            <VButton @click="showInfoToast" variant="secondary" size="sm">
-              Info Toast
-            </VButton>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
-import { useToastStore } from '@/stores/toastStore'
-
-const toastStore = useToastStore()
-
-// Show toast demo in development
-const showToastDemo = ref(import.meta.env.DEV)
-
-const showSuccessToast = () => {
-  toastStore.success('Success!', 'Operation completed successfully!', 4000)
-}
-
-const showErrorToast = () => {
-  toastStore.error('Error', 'Something went wrong. Please try again.', 6000)
-}
-
-const showWarningToast = () => {
-  toastStore.warning('Warning', 'Please review your input before proceeding.', 5000)
-}
-
-const showInfoToast = () => {
-  toastStore.info('Information', 'Here is some useful information for you.', 4000)
-}
 </script>
 
 <style scoped lang="scss">
@@ -241,45 +199,7 @@ const showInfoToast = () => {
     line-height: 1.6;
     font-size: 0.95rem;
   }
-}
 
-// Toast Demo Section
-&__toast-demo {
-  background: rgba(255, 255, 255, 0.8);
-  border: 2px dashed $border;
-  border-radius: $border-radius-lg;
-  padding: $spacing-lg;
-  text-align: center;
-  margin-top: $spacing-xl;
-}
-
-&__demo-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: $text-primary;
-  margin-bottom: $spacing-sm;
-}
-
-&__demo-description {
-  color: $text-secondary;
-  margin-bottom: $spacing-md;
-  font-size: 0.9rem;
-}
-
-&__demo-buttons {
-  display: flex;
-  gap: $spacing-sm;
-  justify-content: center;
-  flex-wrap: wrap;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    
-    .v-button {
-      width: 200px;
-    }
-  }
 }
 
 // Animations

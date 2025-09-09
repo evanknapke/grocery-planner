@@ -15,26 +15,31 @@ html, body {
   color: #333;
 }
 
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 #app {
   min-height: 100vh;
 }
 
-// SCSS Variables
-$primary-color: #4CAF50;
-$primary-dark: #388E3C;
-$primary-light: #81C784;
-$secondary-color: #FF9800;
-$accent-color: #2196F3;
+// SCSS Variables - Modern Blue Palette
+$primary-color: #2563eb;
+$primary-dark: #1d4ed8;
+$primary-light: #3b82f6;
+$secondary-color: #0ea5e9;
+$accent-color: #06b6d4;
 
-// Neutral colors
-$text-primary: #212121;
-$text-secondary: #757575;
-$text-disabled: #BDBDBD;
-$background: #FAFAFA;
-$surface: #FFFFFF;
-$border: #E0E0E0;
-$border-color: #E0E0E0;
-$error-color: #F44336;
+// Neutral colors - Modern Blue Theme
+$text-primary: #0f172a;
+$text-secondary: #64748b;
+$text-disabled: #cbd5e1;
+$background: #f8fafc;
+$surface: #ffffff;
+$border: #e2e8f0;
+$border-color: #e2e8f0;
+$error-color: #ef4444;
 
 // Spacing
 $spacing-xs: 0.25rem;
@@ -49,10 +54,11 @@ $border-radius-sm: 4px;
 $border-radius-md: 8px;
 $border-radius-lg: 12px;
 
-// Shadows
-$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
-$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+// Shadows - Enhanced for modern look
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
 
 // Transitions
 $transition-fast: 0.15s ease;

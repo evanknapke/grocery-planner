@@ -24,10 +24,7 @@
     <div v-else-if="recipe" class="recipe-content">
       <!-- Navigation Header -->
       <div class="recipe-navigation">
-        <VButton @click="goBack" variant="ghost" class="back-button">
-          <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
+        <VButton @click="goBack" variant="ghost" class="back-button" leading-icon="arrowLeft">
           Back to Search
         </VButton>
       </div>

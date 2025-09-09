@@ -16,17 +16,17 @@
             intelligent grocery list generation, and seamless shopping organization.
       </p>
           
-      <div class="home__actions">
-            <router-link to="/recipes" class="home__cta home__cta--primary">
+          <div class="home__actions">
+            <VButton to="/recipes" variant="primary" size="lg" class="home__cta home__cta--primary">
               <span>Explore Recipes</span>
               <svg class="home__cta-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
-            </router-link>
+            </VButton>
             
-            <router-link to="/saved-lists" class="home__cta home__cta--secondary">
+            <VButton to="/saved-lists" variant="outline" size="lg" class="home__cta home__cta--secondary">
               <span>View Saved Lists</span>
-        </router-link>
+            </VButton>
           </div>
         </div>
         
@@ -72,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+import VButton from '@/components/ui/VButton.vue'
 </script>
 
 <style scoped lang="scss">
@@ -145,53 +146,12 @@
     display: flex;
     gap: $spacing-lg;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
   }
 
   &__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: $spacing-sm;
-    padding: $spacing-lg $spacing-xl;
-    border-radius: $border-radius-lg;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all $transition-normal;
-    position: relative;
-    overflow: hidden;
     min-width: 200px;
-    justify-content: center;
-
-    &--primary {
-      background: linear-gradient(135deg, $primary-color, $primary-dark);
-      color: white;
-      box-shadow: $shadow-lg;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: $shadow-xl;
-        background: linear-gradient(135deg, $primary-dark, darken($primary-dark, 10%));
-      }
-
-      &:active {
-        transform: translateY(0);
-      }
-    }
-
-    &--secondary {
-      background: $surface;
-      color: $primary-color;
-      border: 2px solid $primary-color;
-      box-shadow: $shadow-md;
-
-      &:hover {
-        background: $primary-color;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: $shadow-lg;
-      }
-    }
 
     &-icon {
       transition: transform $transition-fast;

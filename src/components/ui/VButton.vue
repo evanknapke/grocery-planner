@@ -1,11 +1,13 @@
 <template>
-  <button
+  <component
+    :is="componentType"
     :class="buttonClasses"
+    :to="to"
     v-bind="$attrs"
     @click="handleClick"
   >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -16,17 +18,23 @@ export interface VButtonProps {
   size?: 'default' | 'sm' | 'lg' | 'icon'
   class?: string
   disabled?: boolean
+  to?: string | object
 }
 
 const props = withDefaults(defineProps<VButtonProps>(), {
   variant: 'primary',
   size: 'default',
   disabled: false,
+  to: undefined,
 })
 
 const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
+
+const componentType = computed(() => {
+  return props.to ? 'router-link' : 'button'
+})
 
 const buttonClasses = computed(() => {
   const baseClasses = 'v-button'
@@ -53,15 +61,16 @@ const handleClick = (event: MouseEvent) => {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  border-radius: 4px;
+  border-radius: $border-radius-md;
   font-size: 0.875rem;
   font-weight: 500;
-  transition: all 0.15s ease;
+  transition: all $transition-normal;
   cursor: pointer;
   border: none;
   text-decoration: none;
   padding: 0.5rem 1rem;
   height: 2.5rem;
+  box-sizing: border-box;
   
   &:focus-visible {
     outline: 2px solid $primary-color;
@@ -75,20 +84,20 @@ const handleClick = (event: MouseEvent) => {
   
   // Variants
   &--primary {
-    background-color: $primary-color;
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
     color: white;
     font-weight: 600;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: $shadow-lg;
     
     &:hover:not(:disabled) {
-      background-color: $primary-dark;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: $shadow-xl;
+      background: linear-gradient(135deg, $primary-dark, #1e40af);
     }
     
     &:active:not(:disabled) {
       transform: translateY(0);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      box-shadow: $shadow-lg;
     }
   }
   
@@ -102,13 +111,22 @@ const handleClick = (event: MouseEvent) => {
   }
   
   &--outline {
-    border: 1px solid $border;
-    background-color: $background;
-    color: $text-primary;
+    border: 2px solid $primary-color;
+    background-color: $surface;
+    color: $primary-color;
+    box-shadow: $shadow-md;
+    box-sizing: border-box;
     
     &:hover:not(:disabled) {
-      background-color: #f1f5f9;
-      color: $text-primary;
+      background-color: $primary-color;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: $shadow-md;
     }
   }
   
@@ -155,9 +173,16 @@ const handleClick = (event: MouseEvent) => {
   }
   
   &--lg {
-    height: 2.75rem;
-    padding: 0.5rem 2rem;
-    border-radius: 4px;
+    height: 3rem;
+    padding: $spacing-lg $spacing-xl;
+    border-radius: $border-radius-lg;
+    font-size: 1.1rem;
+    font-weight: 600;
+    
+    // Ensure outline variant has same visual height by reducing for border
+    &.v-button--outline {
+      height: calc(3rem - 4px); // Reduce by 4px to account for 2px border top + bottom
+    }
   }
   
   &--icon {

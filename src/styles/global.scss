@@ -160,47 +160,7 @@ $transition-slow: 0.5s ease;
 .p-3 { padding: $spacing-lg; }
 .p-4 { padding: $spacing-xl; }
 
-// Button styles
-.btn {
-  display: inline-block;
-  padding: $spacing-sm $spacing-md;
-  border: none;
-  border-radius: $border-radius-sm;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all $transition-fast;
-  
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: $shadow-md;
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.btn-primary {
-  @extend .btn;
-  background-color: $primary-color;
-  color: white;
-  
-  &:hover {
-    background-color: $primary-dark;
-  }
-}
-
-.btn-secondary {
-  @extend .btn;
-  background-color: $secondary-color;
-  color: white;
-  
-  &:hover {
-    background-color: color.adjust($secondary-color, $lightness: -10%);
-  }
-}
+// Button styles removed - all button styling is now handled by VButton component
 
 // Form styles
 .form-group {

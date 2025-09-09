@@ -163,7 +163,6 @@ const saveList = async () => {
     })
     toastStore.success('Success!', 'Grocery list saved successfully!', 4000)
   } catch (error) {
-    console.error('Save error:', error)
     toastStore.error('Error', 'Failed to save grocery list. Please try again.', 6000)
   }
 }

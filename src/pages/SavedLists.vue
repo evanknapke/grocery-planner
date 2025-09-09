@@ -119,17 +119,12 @@ const fetchSavedLists = async () => {
       }
     })
   } catch (err) {
-    console.error('Error fetching saved lists:', err)
     error.value = err instanceof Error ? err.message : 'Failed to fetch saved lists'
   }
 }
 
 const loadList = async (listId: string) => {
   try {
-    console.log('Attempting to load list with ID:', listId)
-    console.log('Grocery store methods:', Object.keys(groceryStore))
-    console.log('loadSavedList method exists:', typeof groceryStore.loadSavedList)
-    
     if (typeof groceryStore.loadSavedList !== 'function') {
       throw new Error('loadSavedList method is not available on grocery store')
     }
@@ -140,7 +135,6 @@ const loadList = async (listId: string) => {
     // Navigate to grocery list page after successful load
     router.push('/grocery-list')
   } catch (err) {
-    console.error('Error loading list:', err)
     error.value = err instanceof Error ? err.message : 'Failed to load list'
   }
 }

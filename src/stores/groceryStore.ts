@@ -19,7 +19,7 @@ export const useGroceryStore = defineStore('grocery', () => {
       }
       localStorage.setItem('groceryList', JSON.stringify(listData))
     } catch (error) {
-      console.error('Error saving grocery list to localStorage:', error)
+      // Silently handle localStorage errors
     }
   }, { deep: true })
 
@@ -59,13 +59,11 @@ export const useGroceryStore = defineStore('grocery', () => {
       const response = await groceryListsService.saveGroceryList(listData)
       
       if (response.success) {
-        console.log('Grocery list saved successfully:', response.data)
         return response.data
       } else {
         throw new Error(response.message || 'Failed to save grocery list')
       }
     } catch (error) {
-      console.error('Error saving grocery list:', error)
       throw error
     }
   }
@@ -76,27 +74,23 @@ export const useGroceryStore = defineStore('grocery', () => {
       if (savedData) {
         const parsedData = JSON.parse(savedData)
         groceryList.value = parsedData.items || []
-        console.log('Grocery list loaded successfully')
       }
     } catch (error) {
-      console.error('Error loading grocery list:', error)
+      // Silently handle localStorage errors
     }
   }
 
   const loadSavedList = async (listId: string) => {
     try {
-      console.log('Loading saved list with ID:', listId)
       const response = await groceryListsService.getGroceryList(listId)
       
       if (response.success && response.data) {
         groceryList.value = response.data.items
-        console.log('Saved grocery list loaded successfully:', response.data.name)
         return response.data
       } else {
         throw new Error(response.message || 'Failed to load saved grocery list')
       }
     } catch (error) {
-      console.error('Error loading saved grocery list:', error)
       throw error
     }
   }

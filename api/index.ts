@@ -19,10 +19,7 @@ app.use(errorHandler);
 
 // Start server
 app.listen(config.port, () => {
-  console.log(`🚀 Server running on port ${config.port}`);
-  console.log(`📊 Health check: http://localhost:${config.port}/health`);
-  console.log(`🔍 Recipe search: http://localhost:${config.port}/recipes/search?query=pasta`);
-  console.log(`📖 Recipe details: http://localhost:${config.port}/recipes/123456`);
+  // Server started successfully
 });
 
 export default app;

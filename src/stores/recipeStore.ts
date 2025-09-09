@@ -19,7 +19,6 @@ export const useRecipeStore = defineStore('recipe', () => {
         throw new Error(response.message || 'Failed to search recipes')
       }
     } catch (error) {
-      console.error('Error searching recipes:', error)
       throw error
     }
   }
@@ -34,7 +33,6 @@ export const useRecipeStore = defineStore('recipe', () => {
         throw new Error(response.message || 'Failed to fetch recipe')
       }
     } catch (error) {
-      console.error('Error fetching recipe by ID:', error)
       throw error
     }
   }

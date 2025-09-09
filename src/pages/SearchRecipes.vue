@@ -77,7 +77,6 @@ const handleSearch = async () => {
     })
   } catch (err) {
     error.value = 'Failed to search recipes. Please try again.'
-    console.error('Search error:', err)
   }
 }
 

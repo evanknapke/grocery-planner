@@ -1,7 +1,7 @@
 <template>
   <div class="recipe-section">
     <div class="section-header">
-      <div class="section-icon">📝</div>
+      <VIcon name="fileDocument" class="section-icon" />
       <h2>About This Recipe</h2>
     </div>
     <div class="summary-card">
@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/VIcon.vue'
+
 defineProps<{
   summary: string
 }>()
@@ -28,11 +30,9 @@ defineProps<{
   margin-bottom: 1.5rem;
 
   .section-icon {
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, $primary-color, $primary-dark);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $primary-color;
   }
 
   h2 {

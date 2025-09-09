@@ -7,7 +7,7 @@
           
           <div class="recipe-meta-grid">
             <div class="meta-card">
-              <div class="meta-icon">⏱️</div>
+              <VIcon name="clock" class="meta-icon" />
               <div class="meta-content">
                 <span class="meta-label">Ready in</span>
                 <span class="meta-value">{{ recipe.readyInMinutes }} min</span>
@@ -15,7 +15,7 @@
             </div>
             
             <div class="meta-card">
-              <div class="meta-icon">👥</div>
+              <VIcon name="accountGroup" class="meta-icon" />
               <div class="meta-content">
                 <span class="meta-label">Serves</span>
                 <span class="meta-value">{{ recipe.servings }}</span>
@@ -23,7 +23,7 @@
             </div>
             
             <div class="meta-card" v-if="recipe.preparationMinutes">
-              <div class="meta-icon">🔪</div>
+              <VIcon name="knife" class="meta-icon" />
               <div class="meta-content">
                 <span class="meta-label">Prep</span>
                 <span class="meta-value">{{ recipe.preparationMinutes }} min</span>
@@ -31,7 +31,7 @@
             </div>
             
             <div class="meta-card" v-if="recipe.cookingMinutes">
-              <div class="meta-icon">🔥</div>
+              <VIcon name="fire" class="meta-icon" />
               <div class="meta-content">
                 <span class="meta-label">Cook</span>
                 <span class="meta-value">{{ recipe.cookingMinutes }} min</span>
@@ -61,6 +61,7 @@
 
 <script setup lang="ts">
 import type { RecipeDetails } from '@/typings/services/RecipeDetails'
+import VIcon from '@/components/ui/VIcon.vue'
 
 defineProps<{
   recipe: RecipeDetails
@@ -147,8 +148,10 @@ defineProps<{
   }
 
   .meta-icon {
-    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
     flex-shrink: 0;
+    color: $primary-color;
   }
 
   .meta-content {

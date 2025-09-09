@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header">
       <div class="header-content">
-        <div class="header-icon">📋</div>
+        <VIcon name="clipboardList" class="header-icon" />
         <div class="header-text">
           <h1 class="page-title">Saved Lists</h1>
           <p class="page-description">
@@ -16,7 +16,7 @@
     <!-- Error State -->
     <div v-if="error" class="error-container">
       <div class="error-card">
-        <div class="error-icon">⚠️</div>
+        <VIcon name="alert" class="error-icon" />
         <h2>Oops! Something went wrong</h2>
         <p>{{ error }}</p>
         <VButton @click="fetchSavedLists" variant="outline" class="error-button">
@@ -28,7 +28,7 @@
     <!-- Empty State -->
     <div v-else-if="savedLists.length === 0" class="empty-container">
       <div class="empty-card">
-        <div class="empty-icon">📝</div>
+        <VIcon name="fileDocument" class="empty-icon" />
         <h2>No Saved Lists Yet</h2>
         <p>Create your first grocery list to get started! Your saved lists will appear here.</p>
         <VButton @click="$router.push('/grocery-list')" variant="primary" class="empty-button">
@@ -46,7 +46,7 @@
           class="list-card"
         >
           <div class="list-card-header">
-            <div class="list-icon">🛒</div>
+            <VIcon name="cart" class="list-icon" />
             <div class="list-info">
               <h3 class="list-title">{{ list.name }}</h3>
               <div class="list-meta">
@@ -57,14 +57,14 @@
           
           <div class="list-dates">
             <div class="date-item">
-              <div class="date-icon">💾</div>
+              <VIcon name="contentSave" class="date-icon" />
               <div class="date-content">
                 <span class="date-label">Saved</span>
                 <span class="date-value">{{ formatDate(list.savedAt) }}</span>
               </div>
             </div>
             <div class="date-item">
-              <div class="date-icon">📅</div>
+              <VIcon name="calendar" class="date-icon" />
               <div class="date-content">
                 <span class="date-label">Created</span>
                 <span class="date-value">{{ formatDate(list.createdAt) }}</span>
@@ -96,6 +96,7 @@ import { useGroceryStore } from '@/stores/groceryStore'
 import { useLoadingStore } from '@/stores/loadingStore'
 import type { GroceryList } from '@/typings/services/GroceryList'
 import VButton from '@/components/ui/VButton.vue'
+import VIcon from '@/components/ui/VIcon.vue'
 
 const router = useRouter()
 const groceryStore = useGroceryStore()
@@ -188,11 +189,9 @@ onMounted(() => {
   gap: 1rem;
 
   .header-icon {
-    font-size: 2.5rem;
-    background: linear-gradient(135deg, $primary-color, $primary-dark);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: $primary-color;
     flex-shrink: 0;
   }
 
@@ -241,8 +240,10 @@ onMounted(() => {
   width: 100%;
 
   .error-icon {
-    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1rem;
+    color: #ef4444;
   }
 
   h2 {
@@ -283,8 +284,10 @@ onMounted(() => {
   width: 100%;
 
   .empty-icon {
-    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1rem;
+    color: $primary-color;
   }
 
   h2 {
@@ -344,9 +347,11 @@ onMounted(() => {
   margin-bottom: 1.5rem;
 
   .list-icon {
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
     flex-shrink: 0;
     margin-top: 0.25rem;
+    color: $primary-color;
   }
 
   .list-info {
@@ -390,8 +395,10 @@ onMounted(() => {
   border: 1px solid $border;
 
   .date-icon {
-    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
     flex-shrink: 0;
+    color: $text-secondary;
   }
 
   .date-content {
@@ -441,7 +448,8 @@ onMounted(() => {
     margin-bottom: 1.25rem;
     
     .list-icon {
-      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
     
     .list-info .list-title {

@@ -1,14 +1,14 @@
 <template>
   <div class="recipe-source-section" v-if="sourceUrl">
     <div class="section-header">
-      <div class="section-icon">🔗</div>
+      <VIcon name="link" class="section-icon" />
       <h2>Recipe Source</h2>
     </div>
     
     <div class="source-card">
       <div class="source-content">
         <div class="source-info">
-          <div class="source-icon">🌐</div>
+          <VIcon name="web" class="source-icon" />
           <div class="source-text">
             <h3>Original Recipe</h3>
             <p>View the original recipe from the source website for additional details and variations.</p>
@@ -20,8 +20,7 @@
           target="_blank" 
           variant="primary"
           class="source-button"
-          leading-icon="link"
-          trailing-icon="openInNew"
+          leading-icon="openInNew"
         >
           Visit Original Recipe
         </VButton>
@@ -32,6 +31,7 @@
 
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
+import VIcon from '@/components/ui/VIcon.vue'
 
 defineProps<{
   sourceUrl: string
@@ -50,11 +50,9 @@ defineProps<{
   margin-bottom: 1.5rem;
 
   .section-icon {
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, $primary-color, $primary-dark);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $primary-color;
   }
 
   h2 {
@@ -91,9 +89,11 @@ defineProps<{
   gap: 1rem;
 
   .source-icon {
-    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
     flex-shrink: 0;
     margin-top: 0.25rem;
+    color: $primary-color;
   }
 
   .source-text {

@@ -20,6 +20,7 @@
           @click="handleSearch"
           variant="primary"
           size="lg"
+          leading-icon="magnify"
         >
           Search
         </VButton>

@@ -1,7 +1,7 @@
 <template>
   <div class="ingredients-section" v-if="ingredients && ingredients.length > 0">
     <div class="section-header">
-      <div class="section-icon">🥘</div>
+      <VIcon name="food" class="section-icon" />
       <h2>Ingredients</h2>
       <div class="ingredient-count">{{ ingredients.length }} items</div>
     </div>
@@ -36,6 +36,8 @@
 </template>
 
 <script setup lang="ts">
+import VIcon from '@/components/ui/VIcon.vue'
+
 // TODO: Figure out type for ingredients
 defineProps<{
   ingredients: any[]
@@ -54,11 +56,9 @@ defineProps<{
   margin-bottom: 1.5rem;
 
   .section-icon {
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, $primary-color, $primary-dark);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $primary-color;
   }
 
   h2 {

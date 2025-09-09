@@ -1,7 +1,7 @@
 <template>
   <div class="instructions-section" v-if="instructions && instructions.length > 0">
     <div class="section-header">
-      <div class="section-icon">👨‍🍳</div>
+      <VIcon name="chefHat" class="section-icon" />
       <h2>Cooking Instructions</h2>
       <div class="step-count">{{ totalSteps }} steps</div>
     </div>
@@ -42,6 +42,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import VIcon from '@/components/ui/VIcon.vue'
 
 // TODO: Figure out type for instructions
 interface Props {
@@ -69,11 +70,9 @@ const totalSteps = computed(() => {
   margin-bottom: 1.5rem;
 
   .section-icon {
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, $primary-color, $primary-dark);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $primary-color;
   }
 
   h2 {

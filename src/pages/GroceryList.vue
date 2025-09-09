@@ -8,7 +8,7 @@
     </div>
 
     <div v-if="groceryList.length === 0" class="empty-state">
-      <div class="empty-state__icon">🛒</div>
+      <VIcon name="cart" class="empty-state__icon" />
       <h3 class="empty-state__title">Your grocery list is empty</h3>
       <p class="empty-state__description">
         Start by searching for recipes and adding ingredients to your list.
@@ -82,6 +82,7 @@ import { computed, onMounted } from 'vue'
 import { useGroceryStore } from '@/stores/groceryStore'
 import { useLoadingStore } from '@/stores/loadingStore'
 import VButton from '@/components/ui/VButton.vue'
+import VIcon from '@/components/ui/VIcon.vue'
 
 const groceryStore = useGroceryStore()
 const loadingStore = useLoadingStore()
@@ -180,8 +181,10 @@ onMounted(() => {
   color: $text-secondary;
 
   &__icon {
-    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
     margin-bottom: 1rem;
+    color: $text-secondary;
   }
 
   &__title {

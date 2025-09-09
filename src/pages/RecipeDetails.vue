@@ -3,7 +3,7 @@
     <!-- Error State -->
     <div v-if="error" class="error-container">
       <div class="error-card">
-        <div class="error-icon">⚠️</div>
+        <VIcon name="alert" class="error-icon" />
         <h2>Oops! Something went wrong</h2>
         <p>{{ error }}</p>
         <VButton @click="goBack" variant="outline" class="error-button">
@@ -15,7 +15,7 @@
     <!-- Success Message -->
     <div v-if="showSuccessMessage" class="success-toast">
       <div class="success-content">
-        <div class="success-icon">✅</div>
+        <VIcon name="check" class="success-icon" />
         <span>Ingredients added to your grocery list!</span>
       </div>
     </div>
@@ -68,6 +68,7 @@ import IngredientsList from '@/components/recipe/IngredientsList.vue'
 import Instructions from '@/components/recipe/Instructions.vue'
 import RecipeSource from '@/components/recipe/RecipeSource.vue'
 import VButton from '@/components/ui/VButton.vue'
+import VIcon from '@/components/ui/VIcon.vue'
 import GroceryActions from '@/components/recipe/GroceryActions.vue'
 
 const route = useRoute()
@@ -164,8 +165,10 @@ onMounted(() => {
   width: 100%;
 
   .error-icon {
-    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1rem;
+    color: #ef4444;
   }
 
   h2 {
@@ -206,7 +209,9 @@ onMounted(() => {
     font-weight: 500;
 
     .success-icon {
-      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: white;
     }
   }
 }

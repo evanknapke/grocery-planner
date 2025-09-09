@@ -19,10 +19,8 @@
         <VButton
           @click="handleSearch"
           variant="primary"
-          :disabled="isLoading"
         >
-          <span v-if="isLoading">Searching...</span>
-          <span v-else>Search</span>
+          Search
         </VButton>
       </div>
     </div>
@@ -40,7 +38,7 @@
       />
     </div>
 
-    <div v-else-if="hasSearched && !isLoading" class="no-results">
+    <div v-else-if="hasSearched" class="no-results">
       <p>No recipes found. Try a different search term.</p>
     </div>
   </div>
@@ -50,14 +48,15 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useRecipeStore } from '@/stores/recipeStore'
+import { useLoadingStore } from '@/stores/loadingStore'
 import RecipeCard from '@/components/RecipeCard.vue'
 import VButton from '@/components/ui/VButton.vue'
 
 const router = useRouter()
 const recipeStore = useRecipeStore()
+const loadingStore = useLoadingStore()
 
 const searchQuery = ref('')
-const isLoading = ref(false)
 const error = ref('')
 const hasSearched = ref(false)
 
@@ -66,17 +65,16 @@ const recipes = computed(() => recipeStore.recipes)
 const handleSearch = async () => {
   if (!searchQuery.value.trim()) return
 
-  isLoading.value = true
   error.value = ''
   hasSearched.value = true
 
   try {
-    await recipeStore.searchRecipes(searchQuery.value.trim())
+    await loadingStore.loadUntilResolved(async () => {
+      return await recipeStore.searchRecipes(searchQuery.value.trim())
+    })
   } catch (err) {
     error.value = 'Failed to search recipes. Please try again.'
     console.error('Search error:', err)
-  } finally {
-    isLoading.value = false
   }
 }
 

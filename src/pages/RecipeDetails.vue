@@ -1,10 +1,6 @@
 <template>
   <div class="recipe-details">
-    <div v-if="isLoading" class="loading">
-      <p>Loading recipe details...</p>
-    </div>
-
-    <div v-else-if="error" class="error">
+    <div v-if="error" class="error">
       <p>{{ error }}</p>
       <VButton @click="goBack" variant="outline">Go Back</VButton>
     </div>
@@ -38,6 +34,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useRecipeStore } from '@/stores/recipeStore'
 import { useGroceryStore } from '@/stores/groceryStore'
+import { useLoadingStore } from '@/stores/loadingStore'
 import RecipeHeader from '@/components/recipe/RecipeHeader.vue'
 import RecipeSummary from '@/components/recipe/RecipeSummary.vue'
 import IngredientsList from '@/components/recipe/IngredientsList.vue'
@@ -50,8 +47,8 @@ const route = useRoute()
 const router = useRouter()
 const recipeStore = useRecipeStore()
 const groceryStore = useGroceryStore()
+const loadingStore = useLoadingStore()
 
-const isLoading = ref(false)
 const error = ref('')
 const showSuccessMessage = ref(false)
 
@@ -66,16 +63,15 @@ const loadRecipe = async () => {
     return
   }
 
-  isLoading.value = true
   error.value = ''
 
   try {
-    await recipeStore.getRecipeById(recipeId)
+    await loadingStore.loadUntilResolved(async () => {
+      return await recipeStore.getRecipeById(recipeId)
+    })
   } catch (err) {
     error.value = 'Failed to load recipe details. Please try again.'
     console.error('Recipe loading error:', err)
-  } finally {
-    isLoading.value = false
   }
 }
 

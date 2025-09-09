@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: $spacing-xl $spacing-md;
 
   &__content {
     text-align: center;
@@ -35,7 +35,7 @@
   &__title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: $spacing-lg;
     color: $primary-color;
     line-height: 1.2;
   }
@@ -43,18 +43,18 @@
   &__description {
     font-size: 1.2rem;
     color: $text-secondary;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: $spacing-xl;
     line-height: 1.6;
   }
 
   &__actions {
-    margin-top: var(--spacing-xl);
+    margin-top: $spacing-xl;
   }
 
   &__cta {
     font-size: 1.1rem;
-    padding: var(--spacing-md) var(--spacing-xl);
-    border-radius: var(--border-radius-md);
+    padding: $spacing-md $spacing-xl;
+    border-radius: $border-radius-md;
     text-decoration: none;
     display: inline-block;
     min-width: 180px;
@@ -64,22 +64,22 @@
 // Responsive design
 @media (max-width: 768px) {
   .home {
-    padding: var(--spacing-lg) var(--spacing-sm);
+    padding: $spacing-lg $spacing-sm;
     min-height: calc(100vh - 100px);
 
     &__title {
       font-size: 2rem;
-      margin-bottom: var(--spacing-md);
+      margin-bottom: $spacing-md;
     }
 
     &__description {
       font-size: 1.1rem;
-      margin-bottom: var(--spacing-lg);
+      margin-bottom: $spacing-lg;
     }
 
     &__cta {
       font-size: 1rem;
-      padding: var(--spacing-sm) var(--spacing-lg);
+      padding: $spacing-sm $spacing-lg;
       min-width: 160px;
     }
   }

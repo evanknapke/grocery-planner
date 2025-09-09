@@ -21,12 +21,8 @@
             variant="primary"
             :disabled="!hasIngredients"
             class="grocery-button primary-button"
+            leading-icon="cartPlus"
           >
-            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="9" cy="21" r="1"/>
-              <circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-            </svg>
             Add to Grocery List
           </VButton>
           
@@ -35,12 +31,8 @@
             variant="secondary"
             v-if="groceryList.length > 0"
             class="grocery-button secondary-button"
+            leading-icon="download"
           >
-            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/>
-              <polyline points="9,11 12,14 15,11"/>
-              <path d="M12 14v8"/>
-            </svg>
             View List ({{ groceryList.length }})
           </VButton>
         </div>

@@ -17,11 +17,8 @@
       </p>
           
           <div class="home__actions">
-            <VButton to="/recipes" variant="primary" size="lg" class="home__cta home__cta--primary">
+            <VButton to="/recipes" variant="primary" size="lg" class="home__cta home__cta--primary" trailing-icon="arrowRight">
               <span>Explore Recipes</span>
-              <svg class="home__cta-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
             </VButton>
             
             <VButton to="/saved-lists" variant="outline" size="lg" class="home__cta home__cta--secondary">
@@ -34,13 +31,7 @@
         <div class="home__features">
           <div class="home__feature-card">
             <div class="home__feature-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 12l2 2 4-4"/>
-                <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
-                <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
-                <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"/>
-                <path d="M12 21c0-1 1-3 3-3s3 2 3 3-1 3-3 3-3-2-3-3"/>
-              </svg>
+              <VIcon name="checkCircle" :size="24" />
             </div>
             <h3 class="home__feature-title">Smart Planning</h3>
             <p class="home__feature-description">AI-powered meal suggestions based on your preferences and dietary needs.</p>
@@ -48,9 +39,7 @@
           
           <div class="home__feature-card">
             <div class="home__feature-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"/>
-              </svg>
+              <VIcon name="cart" :size="24" />
             </div>
             <h3 class="home__feature-title">Organized Lists</h3>
             <p class="home__feature-description">Automatically categorized grocery lists that make shopping efficient and stress-free.</p>
@@ -58,9 +47,7 @@
           
           <div class="home__feature-card">
             <div class="home__feature-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
+              <VIcon name="star" :size="24" />
             </div>
             <h3 class="home__feature-title">Recipe Discovery</h3>
             <p class="home__feature-description">Explore thousands of recipes with detailed instructions and nutritional information.</p>
@@ -73,6 +60,7 @@
 
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
+import VIcon from '@/components/ui/VIcon.vue'
 </script>
 
 <style scoped lang="scss">

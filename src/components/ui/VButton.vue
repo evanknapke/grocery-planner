@@ -6,12 +6,15 @@
     v-bind="$attrs"
     @click="handleClick"
   >
+    <VIcon v-if="leadingIcon" :name="leadingIcon" class="v-button__leading-icon" />
     <slot />
+    <VIcon v-if="trailingIcon" :name="trailingIcon" class="v-button__trailing-icon" />
   </component>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import VIcon from './VIcon.vue'
 
 export interface VButtonProps {
   variant?: 'primary' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
@@ -19,6 +22,8 @@ export interface VButtonProps {
   class?: string
   disabled?: boolean
   to?: string | object
+  leadingIcon?: string
+  trailingIcon?: string
 }
 
 const props = withDefaults(defineProps<VButtonProps>(), {
@@ -26,6 +31,8 @@ const props = withDefaults(defineProps<VButtonProps>(), {
   size: 'default',
   disabled: false,
   to: undefined,
+  leadingIcon: undefined,
+  trailingIcon: undefined,
 })
 
 const emit = defineEmits<{
@@ -189,6 +196,15 @@ const handleClick = (event: MouseEvent) => {
     height: 2.5rem;
     width: 2.5rem;
     padding: 0;
+  }
+  
+  // Icon styles
+  &__leading-icon {
+    margin-right: 0.5rem;
+  }
+  
+  &__trailing-icon {
+    margin-left: 0.5rem;
   }
 }
 </style>

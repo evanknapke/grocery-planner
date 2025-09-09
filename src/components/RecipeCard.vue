@@ -15,11 +15,11 @@
     <h3 class="recipe-card__title">{{ recipe.title }}</h3>
     <div class="recipe-card__meta">
       <span class="recipe-card__time">
-        <i class="icon-clock"></i>
+        <VIcon name="clock" class="recipe-card__icon" />
         {{ recipe.readyInMinutes }} min
       </span>
       <span class="recipe-card__servings">
-        <i class="icon-users"></i>
+        <VIcon name="accountGroup" class="recipe-card__icon" />
         {{ recipe.servings }} servings
       </span>
     </div>
@@ -37,6 +37,7 @@
 import type { RecipeSearchResult } from '@/typings/services/RecipeSearchResult'
 import VButton from '@/components/ui/VButton.vue'
 import VCard from '@/components/ui/VCard.vue'
+import VIcon from '@/components/ui/VIcon.vue'
 
 const props = defineProps<{
   recipe: RecipeSearchResult
@@ -92,12 +93,10 @@ const handleClick = () => {
   }
 }
 
-// Icon placeholders (you can replace with actual icons)
-.icon-clock::before {
-  content: "🕒";
-}
-
-.icon-users::before {
-  content: "👥";
+.recipe-card__icon {
+  width: 1rem;
+  height: 1rem;
+  color: $text-secondary;
+  flex-shrink: 0;
 }
 </style>

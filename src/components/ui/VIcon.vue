@@ -4,9 +4,9 @@
     :width="size"
     :height="size"
     viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
+    :fill="props.fill ? 'currentColor' : 'none'"
+    :stroke="props.fill ? 'none' : 'currentColor'"
+    :stroke-width="props.fill ? '0' : '1.5'"
     stroke-linecap="round"
     stroke-linejoin="round"
   >
@@ -23,11 +23,13 @@ export interface VIconProps {
   size?: number | string
   color?: string
   class?: string
+  fill?: boolean
 }
 
 const props = withDefaults(defineProps<VIconProps>(), {
   size: 24,
   color: 'currentColor',
+  fill: true,
 })
 
 const iconPath = computed(() => {

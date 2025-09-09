@@ -5,13 +5,8 @@
       View and manage your previously saved grocery lists.
     </p>
 
-    <!-- Loading state -->
-    <div v-if="loading" class="saved-lists__loading">
-      <p>Loading saved lists...</p>
-    </div>
-
     <!-- Error state -->
-    <div v-else-if="error" class="saved-lists__error">
+    <div v-if="error" class="saved-lists__error">
       <p>{{ error }}</p>
       <VButton @click="fetchSavedLists" variant="secondary">
         Try Again
@@ -50,9 +45,8 @@
           <VButton 
             @click="loadList(list.id)" 
             variant="primary"
-            :disabled="loadingList"
           >
-            {{ loadingList ? 'Loading...' : 'Load List' }}
+            Load List
           </VButton>
         </div>
       </div>
@@ -65,40 +59,37 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { groceryListsService } from '@/services/groceryListsService'
 import { useGroceryStore } from '@/stores/groceryStore'
+import { useLoadingStore } from '@/stores/loadingStore'
 import type { GroceryList } from '@/typings/services/GroceryList'
 import VButton from '@/components/ui/VButton.vue'
 
 const router = useRouter()
 const groceryStore = useGroceryStore()
+const loadingStore = useLoadingStore()
 
 const savedLists = ref<GroceryList[]>([])
-const loading = ref(false)
-const loadingList = ref(false)
 const error = ref<string | null>(null)
 
 const fetchSavedLists = async () => {
-  loading.value = true
   error.value = null
   
   try {
-    const response = await groceryListsService.getGroceryLists()
-    
-    if (response.success && response.data) {
-      savedLists.value = response.data
-    } else {
-      throw new Error(response.message || 'Failed to fetch saved lists')
-    }
+    await loadingStore.loadUntilResolved(async () => {
+      const response = await groceryListsService.getGroceryLists()
+      
+      if (response.success && response.data) {
+        savedLists.value = response.data
+      } else {
+        throw new Error(response.message || 'Failed to fetch saved lists')
+      }
+    })
   } catch (err) {
     console.error('Error fetching saved lists:', err)
     error.value = err instanceof Error ? err.message : 'Failed to fetch saved lists'
-  } finally {
-    loading.value = false
   }
 }
 
 const loadList = async (listId: string) => {
-  loadingList.value = true
-  
   try {
     console.log('Attempting to load list with ID:', listId)
     console.log('Grocery store methods:', Object.keys(groceryStore))
@@ -108,14 +99,14 @@ const loadList = async (listId: string) => {
       throw new Error('loadSavedList method is not available on grocery store')
     }
     
-    await groceryStore.loadSavedList(listId)
+    await loadingStore.loadUntilResolved(async () => {
+      return await groceryStore.loadSavedList(listId)
+    })
     // Navigate to grocery list page after successful load
     router.push('/grocery-list')
   } catch (err) {
     console.error('Error loading list:', err)
     error.value = err instanceof Error ? err.message : 'Failed to load list'
-  } finally {
-    loadingList.value = false
   }
 }
 

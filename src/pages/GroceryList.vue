@@ -80,9 +80,11 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useGroceryStore } from '@/stores/groceryStore'
+import { useLoadingStore } from '@/stores/loadingStore'
 import VButton from '@/components/ui/VButton.vue'
 
 const groceryStore = useGroceryStore()
+const loadingStore = useLoadingStore()
 
 const groceryList = computed(() => groceryStore.groceryList)
 
@@ -132,7 +134,9 @@ const clearList = () => {
 
 const saveList = async () => {
   try {
-    await groceryStore.saveList()
+    await loadingStore.loadUntilResolved(async () => {
+      return await groceryStore.saveList()
+    })
     alert('Grocery list saved successfully!')
   } catch (error) {
     console.error('Save error:', error)

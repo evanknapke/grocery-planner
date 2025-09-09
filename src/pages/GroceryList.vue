@@ -74,18 +74,62 @@
         </div>
       </div>
     </div>
+
+    <!-- Clear Confirmation Modal -->
+    <VModal
+      v-model="showClearConfirmModal"
+      title="Clear Grocery List"
+      message="Are you sure you want to clear all items from your grocery list? This action cannot be undone."
+      type="warning"
+      icon="alertTriangle"
+      confirm-text="Clear All"
+      confirm-variant="destructive"
+      cancel-text="Cancel"
+      @confirm="confirmClearList"
+    />
+
+    <!-- Success Modal -->
+    <VModal
+      v-model="showSuccessModal"
+      title="Success!"
+      message="Grocery list saved successfully!"
+      type="success"
+      icon="check"
+      :show-cancel-button="false"
+      confirm-text="OK"
+      @confirm="showSuccessModal = false"
+    />
+
+    <!-- Error Modal -->
+    <VModal
+      v-model="showErrorModal"
+      title="Error"
+      :message="errorMessage"
+      type="error"
+      icon="alertCircle"
+      :show-cancel-button="false"
+      confirm-text="OK"
+      @confirm="showErrorModal = false"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useGroceryStore } from '@/stores/groceryStore'
 import { useLoadingStore } from '@/stores/loadingStore'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VModal from '@/components/ui/VModal.vue'
 
 const groceryStore = useGroceryStore()
 const loadingStore = useLoadingStore()
+
+// Modal state
+const showClearConfirmModal = ref(false)
+const showSuccessModal = ref(false)
+const showErrorModal = ref(false)
+const errorMessage = ref('')
 
 const groceryList = computed(() => groceryStore.groceryList)
 
@@ -128,9 +172,12 @@ const toggleItem = (id: string) => {
 }
 
 const clearList = () => {
-  if (confirm('Are you sure you want to clear all items from your grocery list?')) {
-    groceryStore.clearList()
-  }
+  showClearConfirmModal.value = true
+}
+
+const confirmClearList = () => {
+  groceryStore.clearList()
+  showClearConfirmModal.value = false
 }
 
 const saveList = async () => {
@@ -138,10 +185,11 @@ const saveList = async () => {
     await loadingStore.loadUntilResolved(async () => {
       return await groceryStore.saveList()
     })
-    alert('Grocery list saved successfully!')
+    showSuccessModal.value = true
   } catch (error) {
     console.error('Save error:', error)
-    alert('Failed to save grocery list. Please try again.')
+    errorMessage.value = 'Failed to save grocery list. Please try again.'
+    showErrorModal.value = true
   }
 }
 

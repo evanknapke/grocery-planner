@@ -22,18 +22,11 @@
       </div>
     </footer>
 
-    <div v-if="loadingStore.isLoading" class="layout__loading-overlay">
-      <VLoadingSpinner size="lg" color="white" />
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import MainNavigation from './MainNavigation.vue'
-import VLoadingSpinner from './ui/VLoadingSpinner.vue'
-import { useLoadingStore } from '@/stores/loadingStore'
-
-const loadingStore = useLoadingStore()
 </script>
 
 <style lang="scss" scoped>
@@ -119,18 +112,6 @@ const loadingStore = useLoadingStore()
     }
   }
 
-  &__loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
 }
 
 // Responsive design

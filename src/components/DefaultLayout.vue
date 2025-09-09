@@ -49,6 +49,8 @@ const loadingStore = useLoadingStore()
     color: white;
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
 
     &-content {
       max-width: 1200px;
@@ -139,11 +141,6 @@ const loadingStore = useLoadingStore()
         flex-direction: column;
         gap: 1rem;
       }
-    }
-
-
-    &__main {
-      // Individual pages handle their own spacing
     }
   }
 }

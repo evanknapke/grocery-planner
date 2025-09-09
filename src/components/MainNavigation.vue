@@ -2,9 +2,13 @@
   <nav class="navigation">
     <ul class="navigation__list">
       <li v-for="route in routes" :key="route.name" class="navigation__item">
-        <router-link :to="route.path" class="navigation__link">
+        <VButton 
+          :to="route.path" 
+          variant="ghost" 
+          class="navigation__link"
+        >
           {{ route.title}}
-        </router-link>
+        </VButton>
       </li>
     </ul>
   </nav>
@@ -12,6 +16,7 @@
 
 <script setup lang="ts">
 import TopLevelRoutes from '@/router/TopLevelRoutes'
+import VButton from '@/components/ui/VButton.vue'
 
 const routes = TopLevelRoutes.filter(route => !route.hideFromNavigation)
 </script>
@@ -31,20 +36,24 @@ const routes = TopLevelRoutes.filter(route => !route.hideFromNavigation)
   }
 
   &__link {
-    color: white;
-    text-decoration: none;
+    color: white !important;
+    text-decoration: none !important;
     font-weight: 500;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    background-color: transparent !important;
+    border: none !important;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
     }
 
     &.router-link-active {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.2) !important;
       font-weight: 600;
+      color: white !important;
     }
   }
 }

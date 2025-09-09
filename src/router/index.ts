@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DefaultLayout from '@/components/DefaultLayout.vue'
+import DefaultLayout from '@/components/layout/DefaultLayout.vue'
 import TopLevelRoutes from './TopLevelRoutes'
 
 const router = createRouter({

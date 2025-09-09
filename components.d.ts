@@ -9,12 +9,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('./src/components/ui/Button.vue')['default']
-    DefaultLayout: typeof import('./src/components/DefaultLayout.vue')['default']
+    DefaultLayout: typeof import('./src/components/layout/DefaultLayout.vue')['default']
     GroceryActions: typeof import('./src/components/recipe/GroceryActions.vue')['default']
     IngredientsList: typeof import('./src/components/recipe/IngredientsList.vue')['default']
     Instructions: typeof import('./src/components/recipe/Instructions.vue')['default']
-    MainNavigation: typeof import('./src/components/MainNavigation.vue')['default']
-    RecipeCard: typeof import('./src/components/RecipeCard.vue')['default']
+    MainNavigation: typeof import('./src/components/navigation/MainNavigation.vue')['default']
+    RecipeCard: typeof import('./src/components/recipe/RecipeCard.vue')['default']
     RecipeHeader: typeof import('./src/components/recipe/RecipeHeader.vue')['default']
     RecipeSource: typeof import('./src/components/recipe/RecipeSource.vue')['default']
     RecipeSummary: typeof import('./src/components/recipe/RecipeSummary.vue')['default']

@@ -1,29 +1,59 @@
 <template>
   <div class="recipe-details">
-    <div v-if="error" class="error">
-      <p>{{ error }}</p>
-      <VButton @click="goBack" variant="outline">Go Back</VButton>
+    <!-- Error State -->
+    <div v-if="error" class="error-container">
+      <div class="error-card">
+        <div class="error-icon">⚠️</div>
+        <h2>Oops! Something went wrong</h2>
+        <p>{{ error }}</p>
+        <VButton @click="goBack" variant="outline" class="error-button">
+          Go Back
+        </VButton>
+      </div>
     </div>
 
-    <div v-if="showSuccessMessage" class="success-message">
-      <p>✅ Ingredients added to your grocery list!</p>
+    <!-- Success Message -->
+    <div v-if="showSuccessMessage" class="success-toast">
+      <div class="success-content">
+        <div class="success-icon">✅</div>
+        <span>Ingredients added to your grocery list!</span>
+      </div>
     </div>
+
+    <!-- Main Recipe Content -->
     <div v-else-if="recipe" class="recipe-content">
-      <VButton @click="goBack" variant="outline">
-        ← Back to Search
-      </VButton>
+      <!-- Navigation Header -->
+      <div class="recipe-navigation">
+        <VButton @click="goBack" variant="ghost" class="back-button">
+          <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Search
+        </VButton>
+      </div>
+
+      <!-- Recipe Header -->
       <RecipeHeader :recipe="recipe" />
-      <div class="recipe-body">
-        <RecipeSummary :summary="recipe.summary" />
-        <IngredientsList :ingredients="recipe.extendedIngredients" />
-        <Instructions :instructions="recipe.analyzedInstructions" />
-        <RecipeSource :source-url="recipe.sourceUrl" />
-        <GroceryActions 
-          :ingredients="recipe.extendedIngredients"
-          :grocery-list="groceryList"
-          @generate-grocery-list="generateGroceryList"
-          @go-to-grocery-list="goToGroceryList"
-        />
+
+      <!-- Recipe Content Grid -->
+      <div class="recipe-grid">
+        <!-- Left Column - Main Content -->
+        <div class="recipe-main">
+          <RecipeSummary :summary="recipe.summary" />
+          <Instructions :instructions="recipe.analyzedInstructions" />
+          <RecipeSource :source-url="recipe.sourceUrl" />
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="recipe-sidebar">
+          <IngredientsList :ingredients="recipe.extendedIngredients" />
+          <GroceryActions 
+            :ingredients="recipe.extendedIngredients"
+            :grocery-list="groceryList"
+            @generate-grocery-list="generateGroceryList"
+            @go-to-grocery-list="goToGroceryList"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -114,48 +144,170 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .recipe-details {
-  max-width: 1000px;
-  margin: 0 auto;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+// Error State
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   padding: 2rem;
 }
 
-.loading, .error {
-  text-align: center;
+.error-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
   padding: 3rem;
-  color: $text-secondary;
-  font-size: 1.1rem;
-}
-
-.error {
-  color: #c33;
-}
-
-.success-message {
-  background-color: #e8f5e8;
-  color: #2d5a2d;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
   text-align: center;
-  font-weight: 600;
-  border: 2px solid #4caf50;
-}
+  box-shadow: $shadow-xl;
+  max-width: 500px;
+  width: 100%;
 
-.back-button {
-  background: none;
-  border: 2px solid $primary-color;
-  color: $primary-color;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 2rem;
-  transition: all 0.2s ease;
+  .error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
 
-  &:hover {
-    background-color: $primary-color;
-    color: white;
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: $text-secondary;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .error-button {
+    margin-top: 1rem;
   }
 }
 
+// Success Toast
+.success-toast {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  animation: slideInRight 0.3s ease-out;
+
+  .success-content {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-lg;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+
+    .success-icon {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Main Content
+.recipe-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem 2rem;
+  }
+}
+
+// Navigation
+.recipe-navigation {
+  padding: 2rem 0 1rem;
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $text-secondary;
+    font-weight: 500;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $primary-color;
+      transform: translateX(-2px);
+    }
+
+    .back-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+}
+
+// Recipe Grid Layout
+.recipe-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 3rem;
+  margin-top: 2rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+  }
+}
+
+.recipe-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.recipe-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+
+  @media (max-width: 1024px) {
+    position: static;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .recipe-content {
+    padding: 0 1rem 2rem;
+  }
+  
+  .recipe-navigation {
+    padding: 1rem 0 0.5rem;
+  }
+  
+  .recipe-grid {
+    margin-top: 1rem;
+  }
+}
 </style>

@@ -1,27 +1,51 @@
 <template>
-  <div class="recipe-section">
-    <h2>Grocery List</h2>
-    <div class="grocery-actions">
-      <VButton 
-        @click="emit('generate-grocery-list')" 
-        variant="primary"
-        :disabled="!hasIngredients"
-      >
-        <span class="grocery-button__icon">🛒</span>
-        Generate Grocery List
-      </VButton>
-      <VButton 
-        @click="emit('go-to-grocery-list')" 
-        variant="secondary"
-        v-if="groceryList.length > 0"
-      >
-        <span class="grocery-button__icon">📋</span>
-        View Grocery List ({{ groceryList.length }} items)
-      </VButton>
+  <div class="grocery-actions-section">
+    <div class="section-header">
+      <div class="section-icon">🛒</div>
+      <h2>Grocery List</h2>
     </div>
-    <p class="grocery-help-text">
-      Add all ingredients from this recipe to your grocery list for easy shopping.
-    </p>
+    
+    <div class="grocery-card">
+      <div class="grocery-content">
+        <div class="grocery-info">
+          <div class="grocery-icon">📝</div>
+          <div class="grocery-text">
+            <h3>Add to Shopping List</h3>
+            <p>Add all ingredients from this recipe to your grocery list for easy shopping.</p>
+          </div>
+        </div>
+        
+        <div class="grocery-actions">
+          <VButton 
+            @click="emit('generate-grocery-list')" 
+            variant="primary"
+            :disabled="!hasIngredients"
+            class="grocery-button primary-button"
+          >
+            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            Add to Grocery List
+          </VButton>
+          
+          <VButton 
+            @click="emit('go-to-grocery-list')" 
+            variant="secondary"
+            v-if="groceryList.length > 0"
+            class="grocery-button secondary-button"
+          >
+            <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/>
+              <polyline points="9,11 12,14 15,11"/>
+              <path d="M12 14v8"/>
+            </svg>
+            View List ({{ groceryList.length }})
+          </VButton>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,79 +70,187 @@ const hasIngredients = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.recipe-section {
-  margin-bottom: 3rem;
+.grocery-actions-section {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  .section-icon {
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
     color: $text-primary;
-    border-bottom: 2px solid $primary-color;
-    padding-bottom: 0.5rem;
-  }
-
-  .grocery-actions {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-  }
-
-  .grocery-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-
-    &--secondary {
-      background-color: #f5f5f5;
-      color: $text-primary;
-      border: 2px solid #e0e0e0;
-
-      &:hover {
-        background-color: #eeeeee;
-        border-color: #ccc;
-      }
-    }
-
-    &:not(.grocery-button--secondary) {
-      background-color: $secondary-color;
-      color: white;
-
-      &:hover:not(:disabled) {
-        background-color: darken($secondary-color, 10%);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-      }
-    }
-
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    &__icon {
-      font-size: 1.2rem;
-    }
-  }
-
-  .grocery-help-text {
-    color: $text-secondary;
-    font-size: 0.95rem;
-    line-height: 1.5;
     margin: 0;
+  }
+}
+
+.grocery-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  padding: 2rem;
+  box-shadow: $shadow-md;
+  border: 1px solid $border;
+  transition: all $transition-fast;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+}
+
+.grocery-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.grocery-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  .grocery-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .grocery-text {
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-primary;
+      margin: 0 0 0.5rem 0;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+}
+
+.grocery-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @media (min-width: 480px) {
+    flex-direction: row;
+  }
+}
+
+.grocery-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: $border-radius-md;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all $transition-fast;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  .button-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  &.primary-button {
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
+    color: white;
+    box-shadow: $shadow-sm;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, $primary-dark, darken($primary-dark, 10%));
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  }
+
+  &.secondary-button {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    color: $text-primary;
+    border: 1px solid $border;
+
+    &:hover {
+      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+      border-color: $primary-color;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &:disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .grocery-card {
+    padding: 1.5rem;
+  }
+  
+  .grocery-content {
+    gap: 1.5rem;
+  }
+  
+  .grocery-info {
+    gap: 0.75rem;
+    
+    .grocery-icon {
+      font-size: 1.5rem;
+    }
+    
+    .grocery-text h3 {
+      font-size: 1.125rem;
+    }
+  }
+  
+  .section-header {
+    margin-bottom: 1rem;
+    
+    h2 {
+      font-size: 1.25rem;
+    }
   }
 }
 </style>

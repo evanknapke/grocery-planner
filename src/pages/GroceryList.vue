@@ -1,25 +1,20 @@
 <template>
   <div class="grocery-list">
     <!-- Page Header -->
-    <div class="page-header">
-      <div class="header-content">
-        <VIcon name="cart" class="header-icon" />
-        <div class="header-text">
-          <h1 class="page-title">Grocery List</h1>
-          <p class="page-description">
-            Manage your current grocery list and track your shopping progress.
-          </p>
-        </div>
-        <div v-if="groceryList.length > 0" class="header-actions">
-          <VButton @click="clearList" variant="destructive" leading-icon="delete" size="sm">
-            Clear All
-          </VButton>
-          <VButton @click="saveList" variant="primary" leading-icon="contentSave" size="sm">
-            Save List
-          </VButton>
-        </div>
-      </div>
-    </div>
+    <VHeader
+      icon="cart"
+      title="Grocery List"
+      description="Manage your current grocery list and track your shopping progress."
+    >
+      <template #actions>
+        <VButton v-if="groceryList.length > 0" @click="clearList" variant="destructive" leading-icon="delete" size="sm">
+          Clear All
+        </VButton>
+        <VButton v-if="groceryList.length > 0" @click="saveList" variant="primary" leading-icon="contentSave" size="sm">
+          Save List
+        </VButton>
+      </template>
+    </VHeader>
 
     <!-- Empty State -->
     <div v-if="groceryList.length === 0" class="empty-container">
@@ -116,6 +111,7 @@ import { useToastStore } from '@/stores/toastStore'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
 import VModal from '@/components/ui/VModal.vue'
+import VHeader from '@/components/ui/VHeader.vue'
 
 const groceryStore = useGroceryStore()
 const loadingStore = useLoadingStore()
@@ -201,68 +197,6 @@ onMounted(() => {
   }
 }
 
-// Page Header
-.page-header {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 0 3rem;
-
-  @media (max-width: 768px) {
-    padding: 1rem 0 2rem;
-  }
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-
-  .header-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: $primary-color;
-    flex-shrink: 0;
-  }
-
-  .header-text {
-    flex: 1;
-
-    .page-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 0 0 0.5rem 0;
-      color: $text-primary;
-      background: linear-gradient(135deg, $text-primary, $primary-color);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-
-      @media (max-width: 768px) {
-        font-size: 2rem;
-      }
-    }
-
-    .page-description {
-      font-size: 1.1rem;
-      color: $text-secondary;
-      margin: 0;
-      line-height: 1.6;
-    }
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-    flex-shrink: 0;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-  }
-}
 
 // Empty State
 .empty-container {

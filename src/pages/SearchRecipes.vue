@@ -1,11 +1,10 @@
 <template>
   <div class="search-recipes" :class="{ 'search-recipes--has-results': recipes.length > 0 || hasSearched }">
-    <div class="search-recipes__header">
-      <h2 class="search-recipes__title">Search Recipes</h2>
-      <p class="search-recipes__description">
-        Find delicious recipes for your meal planning.
-      </p>
-    </div>
+    <VHeader
+      icon="magnify"
+      title="Search Recipes"
+      description="Find delicious recipes for your meal planning."
+    />
 
     <div class="search-recipes__search">
       <div class="search-input">
@@ -54,6 +53,7 @@ import { useLoadingStore } from '@/stores/loadingStore'
 import RecipeCard from '@/components/recipe/RecipeCard.vue'
 import VButton from '@/components/ui/VButton.vue'
 import VShortTextField from '@/components/ui/VShortTextField.vue'
+import VHeader from '@/components/ui/VHeader.vue'
 
 const router = useRouter()
 const recipeStore = useRecipeStore()
@@ -96,28 +96,30 @@ const viewRecipeDetails = (recipeId: number) => {
   justify-content: flex-start;
   padding-top: 15vh;
 
-  &__header {
-    text-align: center;
-    margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    padding: 1rem;
+    padding-top: 10vh;
+    min-height: calc(100vh - 2rem);
   }
 
-  &__title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: $primary-color;
-    font-weight: 600;
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+    padding-top: 8vh;
   }
 
-  &__description {
-    color: $text-secondary;
-    font-size: 1.1rem;
-    margin-bottom: 0;
-  }
 
   &__search {
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 480px) {
+      margin-bottom: 1rem;
+    }
   }
   
   // When there are results, move content to top
@@ -125,6 +127,14 @@ const viewRecipeDetails = (recipeId: number) => {
     justify-content: flex-start;
     min-height: auto;
     padding-top: 2rem;
+
+    @media (max-width: 768px) {
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      padding-top: 0.75rem;
+    }
   }
 }
 
@@ -135,6 +145,16 @@ const viewRecipeDetails = (recipeId: number) => {
   gap: 1rem;
   max-width: 600px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+  }
 }
 
 .error-message {
@@ -144,6 +164,18 @@ const viewRecipeDetails = (recipeId: number) => {
   border-radius: 8px;
   margin-bottom: 2rem;
   text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
 }
 
 .no-results {
@@ -151,6 +183,16 @@ const viewRecipeDetails = (recipeId: number) => {
   padding: 3rem;
   color: $text-secondary;
   font-size: 1.1rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
 }
 
 .recipes-grid {
@@ -158,5 +200,16 @@ const viewRecipeDetails = (recipeId: number) => {
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+    margin-top: 1rem;
+  }
 }
 </style>

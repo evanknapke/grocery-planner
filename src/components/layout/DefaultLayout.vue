@@ -149,15 +149,12 @@ const closeMobileMenu = () => {
       }
     }
   }
-
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .layout {
     &__header {
       &-content {
-        // Keep horizontal layout for mobile to maintain title and hamburger in same row
         flex-direction: row;
         justify-content: space-between;
         align-items: center;

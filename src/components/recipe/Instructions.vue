@@ -45,17 +45,13 @@ import { computed } from 'vue'
 import VIcon from '@/components/ui/VIcon.vue'
 
 // TODO: Figure out type for instructions
-interface Props {
+const props = defineProps<{
   instructions: any[]
-}
+}>()
 
-const props = defineProps<Props>()
-
-const totalSteps = computed(() => {
-  return props.instructions.reduce((total, instruction) => {
-    return total + (instruction.steps?.length || 0)
-  }, 0)
-})
+const totalSteps = computed(() => props.instructions.reduce((total, instruction) => {
+  return total + (instruction.steps?.length || 0)
+}, 0))
 </script>
 
 <style scoped lang="scss">

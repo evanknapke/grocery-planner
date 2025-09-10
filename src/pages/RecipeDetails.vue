@@ -1,6 +1,5 @@
 <template>
   <div class="recipe-details">
-    <!-- Error State -->
     <div v-if="error" class="error-container">
       <div class="error-card">
         <VIcon name="alert" class="error-icon" />
@@ -12,29 +11,22 @@
       </div>
     </div>
 
-
-    <!-- Main Recipe Content -->
     <div v-else-if="recipe" class="recipe-content">
-      <!-- Navigation Header -->
       <div class="recipe-navigation">
         <VButton @click="goBack" variant="ghost" class="back-button" leading-icon="arrowLeft">
           Back to Search
         </VButton>
       </div>
 
-      <!-- Recipe Header -->
       <RecipeHeader :recipe="recipe" />
 
-      <!-- Recipe Content Grid -->
       <div class="recipe-grid">
-        <!-- Left Column - Main Content -->
         <div class="recipe-main">
           <RecipeSummary :summary="recipe.summary" />
           <Instructions :instructions="recipe.analyzedInstructions" />
           <RecipeSource :source-url="recipe.sourceUrl" />
         </div>
 
-        <!-- Right Column - Sidebar -->
         <div class="recipe-sidebar">
           <IngredientsList :ingredients="recipe.extendedIngredients" />
           <GroceryActions 
@@ -282,7 +274,6 @@ onMounted(() => {
   }
 }
 
-// Responsive adjustments
 @media (max-width: 768px) {
   .recipe-content {
     padding: 0 1rem 2rem;

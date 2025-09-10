@@ -10,7 +10,6 @@
           :aria-describedby="descriptionId"
           aria-modal="true"
         >
-          <!-- Header -->
           <div v-if="showHeader" class="v-modal__header">
             <div class="v-modal__title-section">
               <VIcon v-if="icon" :name="icon" :class="iconClasses" />
@@ -26,13 +25,11 @@
             </button>
           </div>
 
-          <!-- Content -->
           <div class="v-modal__content">
             <p v-if="message" :id="descriptionId" class="v-modal__message">{{ message }}</p>
             <slot />
           </div>
 
-          <!-- Footer -->
           <div v-if="showFooter" class="v-modal__footer">
             <slot name="footer">
               <div class="v-modal__default-footer">
@@ -62,69 +59,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, useSlots } from 'vue'
+import { computed, onUnmounted, ref, watch, nextTick, useSlots } from 'vue'
 import VButton from './VButton.vue'
 import VIcon from './VIcon.vue'
-
-/**
- * VModal - A reusable modal component for alerts, confirmations, and custom content
- * 
- * @example
- * <!-- Basic alert modal -->
- * <VModal
- *   v-model="showModal"
- *   title="Success!"
- *   message="Operation completed successfully."
- *   type="success"
- *   icon="check"
- *   :show-cancel-button="false"
- *   confirm-text="OK"
- * />
- * 
- * @example
- * <!-- Confirmation modal -->
- * <VModal
- *   v-model="showConfirmModal"
- *   title="Delete Item"
- *   message="Are you sure you want to delete this item? This action cannot be undone."
- *   type="warning"
- *   icon="alertTriangle"
- *   confirm-text="Delete"
- *   confirm-variant="destructive"
- *   cancel-text="Cancel"
- *   @confirm="handleDelete"
- *   @cancel="showConfirmModal = false"
- * />
- * 
- * @example
- * <!-- Custom content modal -->
- * <VModal v-model="showCustomModal" title="Custom Content" size="lg">
- *   <div class="custom-content">
- *     <p>Your custom content here...</p>
- *   </div>
- *   <template #footer>
- *     <VButton @click="handleCustomAction">Custom Action</VButton>
- *   </template>
- * </VModal>
- */
-
-export interface VModalProps {
-  modelValue?: boolean
-  title?: string
-  message?: string
-  icon?: string
-  type?: 'info' | 'success' | 'warning' | 'error' | 'confirm'
-  size?: 'sm' | 'default' | 'lg' | 'xl'
-  closable?: boolean
-  closeOnOverlay?: boolean
-  closeOnEscape?: boolean
-  showCancelButton?: boolean
-  showConfirmButton?: boolean
-  cancelText?: string
-  confirmText?: string
-  confirmVariant?: 'primary' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
-  class?: string
-}
+import type { VModalProps } from './typings/VModalProps'
 
 const props = withDefaults(defineProps<VModalProps>(), {
   modelValue: false,
@@ -150,7 +88,6 @@ const emit = defineEmits<{
   'confirm': []
 }>()
 
-// Generate unique IDs for accessibility
 const titleId = ref(`modal-title-${Math.random().toString(36).substring(2, 11)}`)
 const descriptionId = ref(`modal-description-${Math.random().toString(36).substring(2, 11)}`)
 
@@ -178,50 +115,40 @@ const modalClasses = computed(() => {
 const iconClasses = computed(() => {
   const baseClasses = 'v-modal__icon'
   const typeClass = `v-modal__icon--${props.type}`
-  
   return [baseClasses, typeClass].join(' ')
 })
 
-// Handle keyboard events
 const handleKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Escape' && props.closeOnEscape && isOpen.value) {
     close()
   }
 }
 
-// Handle overlay click
 const handleOverlayClick = () => {
   if (props.closeOnOverlay) {
     close()
   }
 }
 
-// Close modal
 const close = () => {
   isOpen.value = false
   emit('close')
 }
 
-// Handle cancel
 const handleCancel = () => {
   emit('cancel')
   close()
 }
 
-// Handle confirm
 const handleConfirm = () => {
   emit('confirm')
   close()
 }
 
-// Watch for modal open/close to manage body scroll and keyboard events
 watch(isOpen, async (newValue) => {
   if (newValue) {
-    // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden'
-    // Add keyboard event listener
     document.addEventListener('keydown', handleKeydown)
-    // Focus the modal for accessibility
     await nextTick()
     const modal = document.querySelector('.v-modal')
     if (modal) {
@@ -230,13 +157,10 @@ watch(isOpen, async (newValue) => {
   } else {
     // Restore body scroll
     document.body.style.overflow = ''
-    // Remove keyboard event listener
     document.removeEventListener('keydown', handleKeydown)
   }
 })
 
-// Cleanup on unmount
-import { onUnmounted } from 'vue'
 onUnmounted(() => {
   document.body.style.overflow = ''
   document.removeEventListener('keydown', handleKeydown)
@@ -401,7 +325,6 @@ onUnmounted(() => {
   min-width: 80px;
 }
 
-// Modal transition animations
 .modal-enter-active,
 .modal-leave-active {
   transition: all $transition-normal;
@@ -422,7 +345,6 @@ onUnmounted(() => {
   transform: scale(1) translateY(0);
 }
 
-// Responsive adjustments
 @media (max-width: 768px) {
   .v-modal-overlay {
     padding: $spacing-sm;

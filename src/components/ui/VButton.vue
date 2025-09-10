@@ -15,16 +15,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import VIcon from './VIcon.vue'
-
-export interface VButtonProps {
-  variant?: 'primary' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
-  size?: 'default' | 'sm' | 'lg' | 'icon'
-  class?: string
-  disabled?: boolean
-  to?: string | object
-  leadingIcon?: string
-  trailingIcon?: string
-}
+import type { VButtonProps } from './typings/VButtonProps'
 
 const props = withDefaults(defineProps<VButtonProps>(), {
   variant: 'primary',
@@ -39,9 +30,7 @@ const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
 
-const componentType = computed(() => {
-  return props.to ? 'router-link' : 'button'
-})
+const componentType = computed(() => props.to ? 'router-link' : 'button')
 
 const buttonClasses = computed(() => {
   const baseClasses = 'v-button'
@@ -186,7 +175,6 @@ const handleClick = (event: MouseEvent) => {
     font-size: 1.1rem;
     font-weight: 600;
     
-    // Ensure outline variant has same visual height by reducing for border
     &.v-button--outline {
       height: calc(3rem - 4px); // Reduce by 4px to account for 2px border top + bottom
     }

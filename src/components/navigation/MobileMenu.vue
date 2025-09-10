@@ -22,16 +22,13 @@
 import TopLevelRoutes from '@/router/TopLevelRoutes'
 import VButton from '@/components/ui/VButton.vue'
 
-interface Props {
+defineProps<{
   isOpen: boolean
-}
+}>()
 
-interface Emits {
+const emit = defineEmits<{
   (e: 'close'): void
-}
-
-defineProps<Props>()
-const emit = defineEmits<Emits>()
+}>()
 
 const routes = TopLevelRoutes.filter(route => !route.hideFromNavigation)
 
@@ -43,7 +40,7 @@ const closeMenu = () => {
 <style scoped lang="scss">
 .mobile-menu {
   position: fixed;
-  top: 4rem; // Further adjusted to eliminate remaining 8px gap
+  top: 4rem;
   left: 0;
   right: 0;
   bottom: 0;
@@ -59,7 +56,7 @@ const closeMenu = () => {
 
   &__overlay {
     position: absolute;
-    top: 0; // Now relative to the mobile-menu container which starts below header
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -69,7 +66,7 @@ const closeMenu = () => {
 
   &__drawer {
     position: absolute;
-    top: 0; // Start from top of mobile-menu container (which is below header)
+    top: 0;
     left: 0;
     right: 0;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
@@ -149,7 +146,6 @@ const closeMenu = () => {
   }
 }
 
-// Animation for slide down effect
 @keyframes slideDown {
   from {
     transform: translateY(-100%);

@@ -17,14 +17,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import * as mdiIcons from '@mdi/js'
-
-export interface VIconProps {
-  name: string
-  size?: number | string
-  color?: string
-  class?: string
-  fill?: boolean
-}
+import type { VIconProps } from './typings/VIconProps'
 
 const props = withDefaults(defineProps<VIconProps>(), {
   size: 24,
@@ -52,8 +45,6 @@ const iconClasses = computed(() => {
   display: inline-block;
   vertical-align: middle;
   flex-shrink: 0;
-  
-  // Ensure the icon inherits the current text color by default
   color: inherit;
 }
 </style>

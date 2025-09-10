@@ -61,7 +61,6 @@ defineProps<{
     line-height: 1.7;
     color: $text-primary;
 
-    // Style HTML content from the summary
     :deep(p) {
       margin-bottom: 1rem;
       

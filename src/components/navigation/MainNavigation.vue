@@ -1,6 +1,5 @@
 <template>
   <nav class="navigation">
-    <!-- Desktop Navigation -->
     <ul class="navigation__list navigation__list--desktop">
       <li v-for="route in routes" :key="route.name" class="navigation__item">
         <VButton 
@@ -25,7 +24,6 @@
       <span class="navigation__hamburger-line"></span>
     </button>
 
-    <!-- Mobile Menu -->
     <MobileMenu 
       :is-open="isMobileMenuOpen" 
       @close="closeMobileMenu" 
@@ -41,7 +39,6 @@ import MobileMenu from './MobileMenu.vue'
 
 const routes = TopLevelRoutes.filter(route => !route.hideFromNavigation)
 
-// Mobile menu state
 const isMobileMenuOpen = ref(false)
 
 const toggleMobileMenu = () => {
@@ -52,7 +49,6 @@ const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
 }
 
-// Expose the function so parent components can call it
 defineExpose({
   closeMobileMenu
 })
@@ -106,7 +102,6 @@ defineExpose({
     }
   }
 
-  // Hamburger button styles
   &__hamburger {
     display: none;
     flex-direction: column;
@@ -159,7 +154,6 @@ defineExpose({
   }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .navigation {
     &__list {

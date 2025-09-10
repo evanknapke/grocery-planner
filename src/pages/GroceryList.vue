@@ -1,6 +1,5 @@
 <template>
   <div class="grocery-list">
-    <!-- Page Header -->
     <VHeader
       icon="cart"
       title="Grocery List"
@@ -16,7 +15,6 @@
       </template>
     </VHeader>
 
-    <!-- Empty State -->
     <div v-if="groceryList.length === 0" class="empty-container">
       <div class="empty-card">
         <VIcon name="cart" class="empty-icon" />
@@ -28,9 +26,7 @@
       </div>
     </div>
 
-    <!-- Main Content -->
     <div v-else class="grocery-content">
-      <!-- Grocery Items -->
       <div class="grocery-items">
         <div
           v-for="group in groupedItems"
@@ -69,7 +65,6 @@
         </div>
       </div>
 
-      <!-- Progress Summary -->
       <div class="grocery-summary">
         <div class="summary-header">
           <VIcon name="checkCircle" class="summary-icon" />
@@ -88,7 +83,6 @@
       </div>
     </div>
 
-    <!-- Clear Confirmation Modal -->
     <VModal
       v-model="showClearConfirmModal"
       title="Clear Grocery List"
@@ -117,7 +111,6 @@ const groceryStore = useGroceryStore()
 const loadingStore = useLoadingStore()
 const toastStore = useToastStore()
 
-// Modal state (keeping only the confirmation modal)
 const showClearConfirmModal = ref(false)
 
 const groceryList = computed(() => groceryStore.groceryList)
@@ -131,7 +124,6 @@ const progressPercentage = computed(() => {
   return (checkedItemsCount.value / groceryList.value.length) * 100
 })
 
-// Group items by aisle
 const groupedItems = computed(() => {
   const groups: { [key: string]: any[] } = {}
   

@@ -47,23 +47,18 @@
 <script setup lang="ts">
 import VIcon from './VIcon.vue'
 import type { Toast } from '@/stores/toastStore'
+import type { VToastProps } from './typings/VToastProps'
 
-export interface VToastProps {
-  toasts: Toast[]
-}
-
-const props = defineProps<VToastProps>()
+defineProps<VToastProps>()
 
 const emit = defineEmits<{
   'remove-toast': [id: string]
 }>()
 
-
 const toastClasses = (toast: Toast) => {
   const baseClasses = 'v-toast'
   const typeClass = `v-toast--${toast.type}`
   const positionClass = `v-toast--${toast.position || 'bottom-left'}`
-  
   return [baseClasses, typeClass, positionClass].join(' ')
 }
 
@@ -249,9 +244,4 @@ const removeToast = (id: string) => {
     transform: scaleX(0);
   }
 }
-
-// Position variants (for future use)
-// .v-toast--top-left, .v-toast--top-center, .v-toast--top-right,
-// .v-toast--bottom-left, .v-toast--bottom-center, .v-toast--bottom-right
-// can be implemented for different positioning when needed
 </style>

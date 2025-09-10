@@ -1,13 +1,11 @@
 <template>
   <div class="saved-lists">
-    <!-- Page Header -->
     <VHeader
       icon="clipboardList"
       title="Saved Lists"
       description="View and manage your previously saved grocery lists."
     />
 
-    <!-- Error State -->
     <div v-if="error" class="error-container">
       <div class="error-card">
         <VIcon name="alert" class="error-icon" />
@@ -19,7 +17,6 @@
       </div>
     </div>
 
-    <!-- Empty State -->
     <div v-else-if="savedLists.length === 0" class="empty-container">
       <div class="empty-card">
         <VIcon name="fileDocument" class="empty-icon" />
@@ -31,7 +28,6 @@
       </div>
     </div>
 
-    <!-- Lists Grid -->
     <div v-else class="lists-container">
       <div class="lists-grid">
         <div 

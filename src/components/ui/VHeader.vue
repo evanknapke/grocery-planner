@@ -17,12 +17,7 @@
 
 <script setup lang="ts">
 import VIcon from '@/components/ui/VIcon.vue'
-
-export interface VHeaderProps {
-  icon: string
-  title: string
-  description: string
-}
+import type { VHeaderProps } from './typings/VHeaderProps'
 
 defineProps<VHeaderProps>()
 </script>

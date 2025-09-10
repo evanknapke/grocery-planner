@@ -12,8 +12,8 @@
           </h1>
           
       <p class="home__description">
-            Transform your meal planning experience with AI-powered recipe discovery, 
-            intelligent grocery list generation, and seamless shopping organization.
+            Transform your meal planning experience with comprehensive recipe discovery, 
+            smart grocery list generation, and seamless shopping organization.
       </p>
           
           <div class="home__actions">
@@ -34,7 +34,7 @@
               <VIcon name="checkCircle" :size="24" />
             </div>
             <h3 class="home__feature-title">Smart Planning</h3>
-            <p class="home__feature-description">AI-powered meal suggestions based on your preferences and dietary needs.</p>
+            <p class="home__feature-description">Intelligent meal suggestions based on your preferences and dietary needs.</p>
           </div>
           
           <div class="home__feature-card">

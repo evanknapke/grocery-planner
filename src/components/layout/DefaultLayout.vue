@@ -5,8 +5,8 @@
     
     <header class="layout__header">
       <div class="layout__header-content">
-        <router-link to="/" class="layout__title">Grocery Planner</router-link>
-        <MainNavigation />
+        <router-link to="/" class="layout__title" @click="closeMobileMenu">Grocery Planner</router-link>
+        <MainNavigation ref="mainNavigation" />
       </div>
     </header>
 
@@ -26,7 +26,16 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import MainNavigation from '../navigation/MainNavigation.vue'
+
+const mainNavigation = ref<InstanceType<typeof MainNavigation> | null>(null)
+
+const closeMobileMenu = () => {
+  if (mainNavigation.value) {
+    mainNavigation.value.closeMobileMenu()
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -119,8 +128,10 @@ import MainNavigation from '../navigation/MainNavigation.vue'
   .layout {
     &__header {
       &-content {
-        flex-direction: column;
-        gap: 1rem;
+        // Keep horizontal layout for mobile to maintain title and hamburger in same row
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
       }
     }
   }

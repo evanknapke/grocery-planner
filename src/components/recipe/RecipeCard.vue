@@ -60,6 +60,16 @@ const handleClick = () => {
     margin-bottom: 1rem;
     color: $text-primary;
     line-height: 1.4;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   &__meta {
@@ -69,10 +79,27 @@ const handleClick = () => {
     font-size: 0.9rem;
     color: $text-secondary;
 
+    @media (max-width: 768px) {
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 480px) {
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+    }
+
     span {
       display: flex;
       align-items: center;
       gap: 0.25rem;
+
+      @media (max-width: 480px) {
+        gap: 0.2rem;
+      }
     }
   }
 
@@ -86,10 +113,28 @@ const handleClick = () => {
     -webkit-box-orient: vertical;
     overflow: hidden;
     flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 480px) {
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+    }
   }
 
   &__button {
     width: 100%;
+
+    @media (max-width: 480px) {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
   }
 }
 
@@ -98,5 +143,15 @@ const handleClick = () => {
   height: 1rem;
   color: $text-secondary;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
 }
 </style>

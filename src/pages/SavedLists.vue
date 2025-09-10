@@ -1,17 +1,11 @@
 <template>
   <div class="saved-lists">
     <!-- Page Header -->
-    <div class="page-header">
-      <div class="header-content">
-        <VIcon name="clipboardList" class="header-icon" />
-        <div class="header-text">
-          <h1 class="page-title">Saved Lists</h1>
-          <p class="page-description">
-            View and manage your previously saved grocery lists.
-          </p>
-        </div>
-      </div>
-    </div>
+    <VHeader
+      icon="clipboardList"
+      title="Saved Lists"
+      description="View and manage your previously saved grocery lists."
+    />
 
     <!-- Error State -->
     <div v-if="error" class="error-container">
@@ -97,6 +91,7 @@ import { useLoadingStore } from '@/stores/loadingStore'
 import type { GroceryList } from '@/typings/services/GroceryList'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VHeader from '@/components/ui/VHeader.vue'
 
 const router = useRouter()
 const groceryStore = useGroceryStore()
@@ -166,53 +161,6 @@ onMounted(() => {
   }
 }
 
-// Page Header
-.page-header {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 0 3rem;
-
-  @media (max-width: 768px) {
-    padding: 1rem 0 2rem;
-  }
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  .header-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: $primary-color;
-    flex-shrink: 0;
-  }
-
-  .header-text {
-    .page-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 0 0 0.5rem 0;
-      color: $text-primary;
-      background: linear-gradient(135deg, $text-primary, $primary-color);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-
-      @media (max-width: 768px) {
-        font-size: 2rem;
-      }
-    }
-
-    .page-description {
-      font-size: 1.1rem;
-      color: $text-secondary;
-      margin: 0;
-      line-height: 1.6;
-    }
-  }
-}
 
 // Error State
 .error-container {

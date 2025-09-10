@@ -16,7 +16,6 @@ router.get('/search', async (req, res) => {
       });
     }
 
-    // Build Spoonacular API URL
     const spoonacularParams = new URLSearchParams({
       apiKey: config.spoonacular.apiKey!,
       query: query as string,
@@ -63,7 +62,6 @@ router.get('/:id', async (req, res) => {
       });
     }
 
-    // Build Spoonacular API URL
     const spoonacularParams = new URLSearchParams({
       apiKey: config.spoonacular.apiKey!,
       includeNutrition: 'true',

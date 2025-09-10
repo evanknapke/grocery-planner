@@ -6,12 +6,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
-export interface VLoadingSpinnerProps {
-  size?: 'sm' | 'default' | 'lg' | 'xl'
-  color?: 'primary' | 'secondary' | 'white' | 'muted'
-  class?: string
-}
+import type { VLoadingSpinnerProps } from './typings/VLoadingSpinnerProps'
 
 const props = withDefaults(defineProps<VLoadingSpinnerProps>(), {
   size: 'default',

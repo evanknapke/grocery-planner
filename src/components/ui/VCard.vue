@@ -26,14 +26,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
-export interface VCardProps {
-  variant?: 'default' | 'elevated' | 'outlined' | 'filled'
-  size?: 'sm' | 'default' | 'lg'
-  interactive?: boolean
-  to?: string | object
-  class?: string
-}
+import type { VCardProps } from './typings/VCardProps'
 
 const props = withDefaults(defineProps<VCardProps>(), {
   variant: 'default',
@@ -197,7 +190,6 @@ const handleClick = (event: MouseEvent) => {
     }
   }
   
-  // Responsive adjustments
   @media (max-width: 768px) {
     &--sm {
       .v-card__content,

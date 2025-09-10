@@ -57,9 +57,7 @@ const emit = defineEmits<{
   'go-to-grocery-list': []
 }>()
 
-const hasIngredients = computed(() => {
-  return props.ingredients && props.ingredients.length > 0
-})
+const hasIngredients = computed(() => props.ingredients && props.ingredients.length > 0)
 </script>
 
 <style scoped lang="scss">

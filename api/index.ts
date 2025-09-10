@@ -18,8 +18,6 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // Start server
-app.listen(config.port, () => {
-  // Server started successfully
-});
+app.listen(config.port);
 
 export default app;

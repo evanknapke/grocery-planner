@@ -1,9 +1,7 @@
 <template>
   <div class="home">
-    <!-- Main content -->
     <div class="home__container">
     <div class="home__content">
-        <!-- Hero section -->
         <div class="home__hero">
           <h1 class="home__title">
             <span class="home__title-highlight">Smart</span> Grocery Planning
@@ -11,10 +9,10 @@
             <span class="home__title-sub">Made Simple</span>
           </h1>
           
-      <p class="home__description">
+          <p class="home__description">
             Transform your meal planning experience with comprehensive recipe discovery, 
             smart grocery list generation, and seamless shopping organization.
-      </p>
+          </p>
           
           <div class="home__actions">
             <VButton to="/recipes" variant="primary" size="lg" class="home__cta home__cta--primary" trailing-icon="arrowRight">
@@ -27,7 +25,6 @@
           </div>
         </div>
         
-        <!-- Feature cards -->
         <div class="home__features">
           <div class="home__feature-card">
             <div class="home__feature-icon">
@@ -53,7 +50,6 @@
             <p class="home__feature-description">Explore thousands of recipes with detailed instructions and nutritional information.</p>
           </div>
         </div>
-        
       </div>
     </div>
   </div>

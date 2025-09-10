@@ -33,23 +33,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue'
+import { computed, ref } from 'vue'
 import VIcon from './VIcon.vue'
-
-export interface VShortTextFieldProps {
-  modelValue?: string
-  type?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url'
-  label?: string
-  placeholder?: string
-  disabled?: boolean
-  readonly?: boolean
-  error?: boolean
-  errorMessage?: string
-  helperText?: string
-  size?: 'sm' | 'default' | 'lg'
-  variant?: 'default' | 'filled' | 'outlined'
-  class?: string
-}
+import type { VShortTextFieldProps } from './typings/VShortTextFieldProps'
 
 const props = withDefaults(defineProps<VShortTextFieldProps>(), {
   modelValue: '',
@@ -70,7 +56,6 @@ const emit = defineEmits<{
 
 const inputRef = ref<HTMLInputElement>()
 
-// Generate unique ID for accessibility
 const inputId = computed(() => `v-short-text-field-${Math.random().toString(36).substring(2, 11)}`)
 
 const hasError = computed(() => props.error || !!props.errorMessage)
@@ -117,7 +102,6 @@ const handleEnter = (event: KeyboardEvent) => {
   emit('enter', event)
 }
 
-// Expose focus method for parent components
 defineExpose({
   focus: () => inputRef.value?.focus(),
   blur: () => inputRef.value?.blur(),

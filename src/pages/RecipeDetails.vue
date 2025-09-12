@@ -1,15 +1,11 @@
 <template>
   <div class="recipe-details">
-    <div v-if="error" class="error-container">
-      <VCard variant="elevated" class="error-card">
-        <VIcon name="alert" class="error-icon" />
-        <h2>Oops! Something went wrong</h2>
-        <p>{{ error }}</p>
-        <VButton @click="goBack" variant="outline" class="error-button">
-          Go Back
-        </VButton>
-      </VCard>
-    </div>
+    <ErrorCard 
+      v-if="error" 
+      :message="error"
+      button-text="Go Back"
+      @action="goBack"
+    />
 
     <div v-else-if="recipe" class="recipe-content">
       <div class="recipe-navigation">
@@ -56,6 +52,7 @@ import RecipeSource from '@/components/recipe/RecipeSource.vue'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
 import VCard from '@/components/ui/VCard.vue'
+import ErrorCard from '@/components/common/ErrorCard.vue'
 import GroceryActions from '@/components/recipe/GroceryActions.vue'
 
 const route = useRoute()
@@ -123,44 +120,6 @@ onMounted(() => {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
-// Error State
-.error-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
-
-.error-card {
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-
-  .error-icon {
-    width: 3rem;
-    height: 3rem;
-    margin-bottom: 1rem;
-    color: #ef4444;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: $text-primary;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    color: $text-secondary;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-
-  .error-button {
-    margin-top: 1rem;
-  }
-}
 
 // Success Toast
 .success-toast {

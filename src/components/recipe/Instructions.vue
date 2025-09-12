@@ -6,7 +6,7 @@
       <div class="step-count">{{ totalSteps }} steps</div>
     </div>
     
-    <div class="instructions-card">
+    <VCard variant="elevated" class="instructions-card">
       <div class="instructions">
         <div
           v-for="instruction in instructions"
@@ -36,13 +36,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </VCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 
 // TODO: Figure out type for instructions
 const props = defineProps<{
@@ -90,19 +91,6 @@ const totalSteps = computed(() => props.instructions.reduce((total, instruction)
   }
 }
 
-.instructions-card {
-  background: $surface;
-  border-radius: $border-radius-lg;
-  padding: 2rem;
-  box-shadow: $shadow-md;
-  border: 1px solid $border;
-  transition: all $transition-fast;
-
-  &:hover {
-    box-shadow: $shadow-lg;
-    transform: translateY(-2px);
-  }
-}
 
 .instructions {
   .instruction-group {
@@ -226,10 +214,6 @@ const totalSteps = computed(() => props.instructions.reduce((total, instruction)
 }
 
 @media (max-width: 768px) {
-  .instructions-card {
-    padding: 1.5rem;
-  }
-  
   .instruction-step {
     padding: 1rem;
     gap: 0.75rem;

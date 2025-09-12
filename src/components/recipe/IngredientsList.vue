@@ -6,7 +6,7 @@
       <div class="ingredient-count">{{ ingredients.length }} items</div>
     </div>
     
-    <div class="ingredients-card">
+    <VCard variant="elevated" class="ingredients-card">
       <div class="ingredients-list">
         <div
           v-for="ingredient in ingredients"
@@ -31,12 +31,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </VCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 
 // TODO: Figure out type for ingredients
 defineProps<{
@@ -80,19 +81,6 @@ defineProps<{
   }
 }
 
-.ingredients-card {
-  background: $surface;
-  border-radius: $border-radius-lg;
-  padding: 1.5rem;
-  box-shadow: $shadow-md;
-  border: 1px solid $border;
-  transition: all $transition-fast;
-
-  &:hover {
-    box-shadow: $shadow-lg;
-    transform: translateY(-2px);
-  }
-}
 
 .ingredients-list {
   display: flex;
@@ -202,10 +190,6 @@ defineProps<{
 }
 
 @media (max-width: 768px) {
-  .ingredients-card {
-    padding: 1rem;
-  }
-  
   .ingredient-item {
     padding: 0.75rem;
     gap: 0.75rem;

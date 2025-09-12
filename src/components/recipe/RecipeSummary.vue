@@ -4,14 +4,15 @@
       <VIcon name="fileDocument" class="section-icon" />
       <h2>About This Recipe</h2>
     </div>
-    <div class="summary-card">
+    <VCard variant="elevated" class="summary-card">
       <div class="summary-content" v-html="summary"></div>
-    </div>
+    </VCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 
 defineProps<{
   summary: string
@@ -44,18 +45,6 @@ defineProps<{
 }
 
 .summary-card {
-  background: $surface;
-  border-radius: $border-radius-lg;
-  padding: 2rem;
-  box-shadow: $shadow-md;
-  border: 1px solid $border;
-  transition: all $transition-fast;
-
-  &:hover {
-    box-shadow: $shadow-lg;
-    transform: translateY(-2px);
-  }
-
   .summary-content {
     font-size: 1.1rem;
     line-height: 1.7;
@@ -94,10 +83,6 @@ defineProps<{
 }
 
 @media (max-width: 768px) {
-  .summary-card {
-    padding: 1.5rem;
-  }
-  
   .section-header {
     margin-bottom: 1rem;
     

@@ -5,7 +5,7 @@
       <h2>Grocery List</h2>
     </div>
     
-    <div class="grocery-card">
+    <VCard variant="elevated" class="grocery-card">
       <div class="grocery-content">
         <div class="grocery-info">
           <VIcon name="fileDocument" class="grocery-icon" />
@@ -37,7 +37,7 @@
           </VButton>
         </div>
       </div>
-    </div>
+    </VCard>
   </div>
 </template>
 
@@ -45,6 +45,7 @@
 import { computed } from 'vue'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 
 // TODO: Figure out types for ingredients and groceryList
 const props = defineProps<{
@@ -85,19 +86,6 @@ const hasIngredients = computed(() => props.ingredients && props.ingredients.len
   }
 }
 
-.grocery-card {
-  background: $surface;
-  border-radius: $border-radius-lg;
-  padding: 2rem;
-  box-shadow: $shadow-md;
-  border: 1px solid $border;
-  transition: all $transition-fast;
-
-  &:hover {
-    box-shadow: $shadow-lg;
-    transform: translateY(-2px);
-  }
-}
 
 .grocery-content {
   display: flex;
@@ -146,10 +134,6 @@ const hasIngredients = computed(() => props.ingredients && props.ingredients.len
 }
 
 @media (max-width: 768px) {
-  .grocery-card {
-    padding: 1.5rem;
-  }
-  
   .grocery-content {
     gap: 1.5rem;
   }

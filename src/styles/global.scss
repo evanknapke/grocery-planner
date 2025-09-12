@@ -189,18 +189,6 @@ $transition-slow: 0.5s ease;
   }
 }
 
-// Card styles
-.card {
-  background: $surface;
-  border-radius: $border-radius-md;
-  box-shadow: $shadow-sm;
-  padding: $spacing-lg;
-  transition: box-shadow $transition-fast;
-  
-  &:hover {
-    box-shadow: $shadow-md;
-  }
-}
 
 // Responsive utilities
 @media (max-width: 768px) {

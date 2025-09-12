@@ -5,7 +5,7 @@
       <h2>Recipe Source</h2>
     </div>
     
-    <div class="source-card">
+    <VCard variant="elevated" class="source-card">
       <div class="source-content">
         <div class="source-info">
           <VIcon name="web" class="source-icon" />
@@ -25,13 +25,14 @@
           Visit Original Recipe
         </VButton>
       </div>
-    </div>
+    </VCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 
 defineProps<{
   sourceUrl: string
@@ -63,19 +64,6 @@ defineProps<{
   }
 }
 
-.source-card {
-  background: $surface;
-  border-radius: $border-radius-lg;
-  padding: 2rem;
-  box-shadow: $shadow-md;
-  border: 1px solid $border;
-  transition: all $transition-fast;
-
-  &:hover {
-    box-shadow: $shadow-lg;
-    transform: translateY(-2px);
-  }
-}
 
 .source-content {
   display: flex;
@@ -135,10 +123,6 @@ defineProps<{
 }
 
 @media (max-width: 768px) {
-  .source-card {
-    padding: 1.5rem;
-  }
-  
   .source-content {
     gap: 1.5rem;
   }

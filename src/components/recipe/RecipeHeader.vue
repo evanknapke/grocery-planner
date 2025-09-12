@@ -1,6 +1,6 @@
 <template>
   <div class="recipe-header">
-    <div class="recipe-hero">
+    <VCard variant="elevated" class="recipe-hero">
       <div class="recipe-content">
         <div class="recipe-info">
           <h1 class="recipe-title">{{ recipe.title }}</h1>
@@ -55,13 +55,14 @@
           <div class="image-overlay"></div>
         </div>
       </div>
-    </div>
+    </VCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { RecipeDetails } from '@/typings/services/RecipeDetails'
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 
 defineProps<{
   recipe: RecipeDetails
@@ -74,10 +75,8 @@ defineProps<{
 }
 
 .recipe-hero {
-  background: $surface;
-  border-radius: $border-radius-lg;
   overflow: hidden;
-  box-shadow: $shadow-lg;
+  // Card styling is now handled by VCard component
 }
 
 .recipe-content {

@@ -1,14 +1,14 @@
 <template>
   <div class="recipe-details">
     <div v-if="error" class="error-container">
-      <div class="error-card">
+      <VCard variant="elevated" class="error-card">
         <VIcon name="alert" class="error-icon" />
         <h2>Oops! Something went wrong</h2>
         <p>{{ error }}</p>
         <VButton @click="goBack" variant="outline" class="error-button">
           Go Back
         </VButton>
-      </div>
+      </VCard>
     </div>
 
     <div v-else-if="recipe" class="recipe-content">
@@ -55,6 +55,7 @@ import Instructions from '@/components/recipe/Instructions.vue'
 import RecipeSource from '@/components/recipe/RecipeSource.vue'
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
 import GroceryActions from '@/components/recipe/GroceryActions.vue'
 
 const route = useRoute()
@@ -132,11 +133,7 @@ onMounted(() => {
 }
 
 .error-card {
-  background: $surface;
-  border-radius: $border-radius-lg;
-  padding: 3rem;
   text-align: center;
-  box-shadow: $shadow-xl;
   max-width: 500px;
   width: 100%;
 

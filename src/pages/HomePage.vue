@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home__container">
-    <div class="home__content">
+      <div class="home__content">
         <div class="home__hero">
           <h1 class="home__title">
             <span class="home__title-highlight">Smart</span> Grocery Planning
@@ -16,39 +16,30 @@
           
           <div class="home__actions">
             <VButton to="/recipes" variant="primary" size="lg" class="home__cta home__cta--primary" trailing-icon="arrowRight">
-              <span>Explore Recipes</span>
+              Explore Recipes
             </VButton>
             
             <VButton to="/saved-lists" variant="outline" size="lg" class="home__cta home__cta--secondary">
-              <span>View Saved Lists</span>
+              Saved Lists
             </VButton>
           </div>
         </div>
         
         <div class="home__features">
-          <div class="home__feature-card">
+          <VCard 
+            v-for="feature in features" 
+            :key="feature.id"
+            variant="default" 
+            size="default" 
+            interactive 
+            class="home__feature-card"
+          >
             <div class="home__feature-icon">
-              <VIcon name="checkCircle" :size="24" />
+              <VIcon :name="feature.icon" :size="24" />
             </div>
-            <h3 class="home__feature-title">Smart Planning</h3>
-            <p class="home__feature-description">Intelligent meal suggestions based on your preferences and dietary needs.</p>
-          </div>
-          
-          <div class="home__feature-card">
-            <div class="home__feature-icon">
-              <VIcon name="cart" :size="24" />
-            </div>
-            <h3 class="home__feature-title">Organized Lists</h3>
-            <p class="home__feature-description">Automatically categorized grocery lists that make shopping efficient and stress-free.</p>
-          </div>
-          
-          <div class="home__feature-card">
-            <div class="home__feature-icon">
-              <VIcon name="star" :size="24" />
-            </div>
-            <h3 class="home__feature-title">Recipe Discovery</h3>
-            <p class="home__feature-description">Explore thousands of recipes with detailed instructions and nutritional information.</p>
-          </div>
+            <h3 class="home__feature-title">{{ feature.title }}</h3>
+            <p class="home__feature-description">{{ feature.description }}</p>
+          </VCard>
         </div>
       </div>
     </div>
@@ -58,6 +49,28 @@
 <script setup lang="ts">
 import VButton from '@/components/ui/VButton.vue'
 import VIcon from '@/components/ui/VIcon.vue'
+import VCard from '@/components/ui/VCard.vue'
+
+const features = [
+  {
+    id: 0,
+    icon: 'checkCircle',
+    title: 'Smart Planning',
+    description: 'Intelligent meal suggestions based on your preferences and dietary needs.'
+  },
+  {
+    id: 1,
+    icon: 'cart',
+    title: 'Organized Lists',
+    description: 'Automatically categorized grocery lists that make shopping efficient and stress-free.'
+  },
+  {
+    id: 2,
+    icon: 'star',
+    title: 'Recipe Discovery',
+    description: 'Explore thousands of recipes with detailed instructions and nutritional information.'
+  }
+]
 </script>
 
 <style scoped lang="scss">
@@ -137,14 +150,6 @@ import VIcon from '@/components/ui/VIcon.vue'
 
   &__cta {
     min-width: 200px;
-
-    &-icon {
-      transition: transform $transition-fast;
-    }
-
-    &:hover &-icon {
-      transform: translateX(4px);
-    }
   }
 
   &__features {
@@ -155,25 +160,18 @@ import VIcon from '@/components/ui/VIcon.vue'
   }
 
   &__feature-card {
-    background: $surface;
-    padding: $spacing-xl;
-    border-radius: $border-radius-lg;
-    box-shadow: $shadow-md;
     text-align: center;
-    transition: all $transition-normal;
-    border: 1px solid rgba($primary-color, 0.1);
+    border: 1px solid rgba($primary-color, 0.1) !important;
 
     &:hover {
-      transform: translateY(-4px);
-      box-shadow: $shadow-xl;
-      border-color: rgba($primary-color, 0.2);
+      border-color: rgba($primary-color, 0.2) !important;
     }
   }
 
   &__feature-icon {
     width: 60px;
     height: 60px;
-    margin: 0 auto $spacing-lg;
+    margin: 0 auto;
     background: linear-gradient(135deg, $primary-color, $secondary-color);
     border-radius: 50%;
     display: flex;
@@ -187,6 +185,7 @@ import VIcon from '@/components/ui/VIcon.vue'
     font-size: 1.25rem;
     font-weight: 700;
     color: $text-primary;
+    margin-top: $spacing-lg;
     margin-bottom: $spacing-sm;
   }
 
@@ -196,16 +195,6 @@ import VIcon from '@/components/ui/VIcon.vue'
     font-size: 0.95rem;
   }
 
-}
-
-// Animations
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
 
 // Responsive design
@@ -247,9 +236,6 @@ import VIcon from '@/components/ui/VIcon.vue'
       margin-top: $spacing-xl;
     }
 
-    &__feature-card {
-      padding: $spacing-lg;
-    }
   }
 }
 

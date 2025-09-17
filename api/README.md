@@ -1,23 +1,20 @@
 # Grocery Planner API
 
-Express API server that proxies requests to the Spoonacular API for the grocery planner application.
+Vercel serverless functions that proxy requests to the Spoonacular API for the grocery planner application.
 
 ## Project Structure
 
 ```
 api/
-├── config/
-│   └── index.ts          # Configuration and environment variables
-├── middleware/
-│   ├── cors.ts           # CORS middleware
-│   └── errorHandler.ts   # Error handling middleware
-├── routes/
-│   ├── health.ts         # Health check endpoint
-│   ├── recipes.ts        # Recipe search and details endpoints
-│   └── index.ts          # Route aggregator
-├── index.ts              # Main server file
-├── package.json          # Dependencies and scripts
-└── tsconfig.json         # TypeScript configuration
+├── health.ts                    # Health check endpoint
+├── recipes/
+│   ├── search.ts               # Recipe search endpoint
+│   └── [id].ts                 # Recipe details endpoint
+├── grocery-lists/
+│   ├── index.ts                # Grocery lists CRUD operations
+│   └── [id].ts                 # Individual grocery list operations
+├── package.json                # Dependencies and scripts
+└── tsconfig.json              # TypeScript configuration
 ```
 
 ## Setup
@@ -56,9 +53,13 @@ api/
 
 ## API Endpoints
 
-- `GET /health` - Health check
-- `GET /recipes/search?query=<search_term>` - Search for recipes
-- `GET /recipes/:id` - Get detailed recipe information
+- `GET /api/health` - Health check
+- `GET /api/recipes/search?query=<search_term>` - Search for recipes
+- `GET /api/recipes/[id]` - Get detailed recipe information
+- `GET /api/grocery-lists` - Get all saved grocery lists
+- `POST /api/grocery-lists` - Save a new grocery list
+- `GET /api/grocery-lists/[id]` - Get a specific grocery list
+- `DELETE /api/grocery-lists/[id]` - Delete a grocery list
 
 ## Environment Variables
 

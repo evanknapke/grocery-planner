@@ -9,15 +9,30 @@
 
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import VToast from '@/components/ui/VToast.vue'
 import VLoadingSpinner from '@/components/ui/VLoadingSpinner.vue'
 import { useToastStore } from '@/stores/toastStore'
 import { useLoadingStore } from '@/stores/loadingStore'
+import { useAuthStore } from '@/stores/auth'
 
 const toastStore = useToastStore()
 const loadingStore = useLoadingStore()
+const authStore = useAuthStore()
 const toasts = computed(() => toastStore.toasts)
+
+// Ensure user session is fetched when app mounts
+// This is a backup to ensure auth state is properly loaded
+onMounted(async () => {
+  try {
+    // Only fetch if we don't already have a user and we're not already loading
+    if (!authStore.isAuthenticated && !authStore.loading) {
+      await authStore.fetchUser()
+    }
+  } catch (error) {
+    console.error('Failed to fetch user on app mount:', error)
+  }
+})
 </script>
 
 <style scoped lang="scss">

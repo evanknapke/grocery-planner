@@ -40,6 +40,7 @@ $surface: #ffffff;
 $border: #e2e8f0;
 $border-color: #e2e8f0;
 $error-color: #ef4444;
+$success-color: #10b981;
 
 // Spacing
 $spacing-xs: 0.25rem;
@@ -98,6 +99,8 @@ $transition-slow: 0.5s ease;
   --accent-foreground: #{$text-primary};
   --destructive: #{$error-color};
   --destructive-foreground: #ffffff;
+  --success: #{$success-color};
+  --success-foreground: #ffffff;
   --border: #{$border};
   --input: #{$border};
   --ring: #{$primary-color};

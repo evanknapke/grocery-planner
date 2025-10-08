@@ -21,6 +21,9 @@ const loadingStore = useLoadingStore()
 const authStore = useAuthStore()
 const toasts = computed(() => toastStore.toasts)
 
+// Note: Grocery list loading is now handled automatically by the auth store
+// when authentication state changes, so we don't need to do it here
+
 // Ensure user session is fetched when app mounts
 // This is a backup to ensure auth state is properly loaded
 onMounted(async () => {

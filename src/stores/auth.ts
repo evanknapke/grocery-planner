@@ -90,8 +90,13 @@ export const useAuthStore = defineStore('auth', () => {
         throw new Error(error.message)
       }
 
+      // Clear user data
       user.value = null
       session.value = null
+      
+      // Clear all user-specific data from other stores
+      await clearUserData()
+      
       console.log('User signed out successfully')
 
       return { success: true }
@@ -101,6 +106,38 @@ export const useAuthStore = defineStore('auth', () => {
       return { success: false, error: errorMessage }
     } finally {
       loading.value = false
+    }
+  }
+
+  // Helper function to clear all user-specific data
+  const clearUserData = async () => {
+    try {
+      // Import and clear grocery store data
+      const { useGroceryStore } = await import('@/stores/groceryStore')
+      const groceryStore = useGroceryStore()
+      
+      // Use the grocery store's clearUserData function
+      groceryStore.clearUserData()
+      
+      console.log('User data cleared successfully')
+    } catch (error) {
+      console.error('Failed to clear user data:', error)
+    }
+  }
+
+  // Helper function to load user-specific data
+  const loadUserData = async () => {
+    try {
+      // Import and load grocery store data
+      const { useGroceryStore } = await import('@/stores/groceryStore')
+      const groceryStore = useGroceryStore()
+      
+      // Load grocery list data
+      await groceryStore.loadList()
+      
+      console.log('User data loaded successfully')
+    } catch (error) {
+      console.error('Failed to load user data:', error)
     }
   }
 
@@ -143,15 +180,25 @@ export const useAuthStore = defineStore('auth', () => {
       await fetchUser()
 
       // Listen for auth state changes
-      supabase.auth.onAuthStateChange((event, newSession) => {
+      supabase.auth.onAuthStateChange(async (event, newSession) => {
         console.log('Auth state changed:', event, newSession?.user?.email)
         
         if (newSession?.user) {
           user.value = newSession.user
           session.value = newSession
+          
+          // Load user data when they sign in
+          if (event === 'SIGNED_IN') {
+            await loadUserData()
+          }
         } else {
           user.value = null
           session.value = null
+          
+          // Clear user data when they sign out
+          if (event === 'SIGNED_OUT') {
+            await clearUserData()
+          }
         }
       })
     } finally {

@@ -172,7 +172,6 @@ export const useGroceryStore = defineStore('grocery', () => {
       const fallbackItems = loadFromLocalStorage(currentUserId.value)
       if (fallbackItems.length > 0) {
         groceryList.value = fallbackItems
-        console.log('Loaded from localStorage fallback for user:', currentUserId.value)
       }
     } catch (error) {
       console.error('Failed to load from localStorage fallback:', error)
@@ -202,7 +201,6 @@ export const useGroceryStore = defineStore('grocery', () => {
       const userId = validateUser()
       currentUserId.value = userId
       await saveToSupabase(groceryList.value)
-      console.log('Successfully synced with Supabase')
     } catch (error) {
       console.error('Failed to sync with Supabase:', error)
       throw error
@@ -220,8 +218,6 @@ export const useGroceryStore = defineStore('grocery', () => {
     if (currentUserId.value) {
       localStorage.removeItem(`groceryList_${currentUserId.value}`)
     }
-    
-    console.log('Grocery store user data cleared')
   }
 
   return {

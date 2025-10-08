@@ -19,7 +19,6 @@ export const useAuthStore = defineStore('auth', () => {
   const signUp = async (email: string, password: string) => {
     try {
       loading.value = true
-      console.log('Attempting to sign up user:', email)
 
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -34,7 +33,6 @@ export const useAuthStore = defineStore('auth', () => {
       if (data.user) {
         user.value = data.user
         session.value = data.session || null
-        console.log('User signed up successfully:', data.user.email)
       }
 
       return { success: true, user: data.user, session: data.session }
@@ -50,7 +48,6 @@ export const useAuthStore = defineStore('auth', () => {
   const signIn = async (email: string, password: string) => {
     try {
       loading.value = true
-      console.log('Attempting to sign in user:', email)
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -65,7 +62,6 @@ export const useAuthStore = defineStore('auth', () => {
       if (data.user) {
         user.value = data.user
         session.value = data.session || null
-        console.log('User signed in successfully:', data.user.email)
       }
 
       return { success: true, user: data.user, session: data.session }
@@ -81,7 +77,6 @@ export const useAuthStore = defineStore('auth', () => {
   const signOut = async () => {
     try {
       loading.value = true
-      console.log('Attempting to sign out user')
 
       const { error } = await supabase.auth.signOut()
 
@@ -96,8 +91,6 @@ export const useAuthStore = defineStore('auth', () => {
       
       // Clear all user-specific data from other stores
       await clearUserData()
-      
-      console.log('User signed out successfully')
 
       return { success: true }
     } catch (error) {
@@ -118,8 +111,6 @@ export const useAuthStore = defineStore('auth', () => {
       
       // Use the grocery store's clearUserData function
       groceryStore.clearUserData()
-      
-      console.log('User data cleared successfully')
     } catch (error) {
       console.error('Failed to clear user data:', error)
     }
@@ -134,8 +125,6 @@ export const useAuthStore = defineStore('auth', () => {
       
       // Load grocery list data
       await groceryStore.loadList()
-      
-      console.log('User data loaded successfully')
     } catch (error) {
       console.error('Failed to load user data:', error)
     }
@@ -144,7 +133,6 @@ export const useAuthStore = defineStore('auth', () => {
   const fetchUser = async () => {
     try {
       loading.value = true
-      console.log('Fetching current user session')
 
       const { data: { session: currentSession }, error } = await supabase.auth.getSession()
 
@@ -156,11 +144,9 @@ export const useAuthStore = defineStore('auth', () => {
       if (currentSession?.user) {
         user.value = currentSession.user
         session.value = currentSession
-        console.log('User session restored:', currentSession.user.email)
       } else {
         user.value = null
         session.value = null
-        console.log('No active user session found')
       }
 
       return { success: true, user: currentSession?.user, session: currentSession }
@@ -181,7 +167,6 @@ export const useAuthStore = defineStore('auth', () => {
 
       // Listen for auth state changes
       supabase.auth.onAuthStateChange(async (event, newSession) => {
-        console.log('Auth state changed:', event, newSession?.user?.email)
         
         if (newSession?.user) {
           user.value = newSession.user

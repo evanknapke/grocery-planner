@@ -156,10 +156,15 @@ const clearList = () => {
   showClearConfirmModal.value = true
 }
 
-const confirmClearList = () => {
-  groceryStore.clearList()
-  showClearConfirmModal.value = false
-  toastStore.success('List Cleared', 'Grocery list cleared successfully!', 3000)
+const confirmClearList = async () => {
+  try {
+    await groceryStore.clearList()
+    showClearConfirmModal.value = false
+    toastStore.success('List Cleared', 'Grocery list cleared successfully!', 3000)
+  } catch (error) {
+    console.error('Failed to clear list:', error)
+    toastStore.error('Error', 'Failed to clear grocery list. Please try again.', 6000)
+  }
 }
 
 const saveList = async () => {
@@ -173,8 +178,13 @@ const saveList = async () => {
   }
 }
 
-onMounted(() => {
-  groceryStore.loadList()
+onMounted(async () => {
+  try {
+    await groceryStore.loadList()
+  } catch (error) {
+    console.error('Failed to load grocery list:', error)
+    toastStore.error('Error', 'Failed to load grocery list. Please refresh the page.', 6000)
+  }
 })
 </script>
 

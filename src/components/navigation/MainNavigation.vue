@@ -12,6 +12,33 @@
       </li>
     </ul>
 
+    <!-- Authentication Section -->
+    <div class="navigation__auth">
+      <div v-if="authStore.loading" class="navigation__loading">
+        <VLoadingSpinner size="sm" color="white" />
+      </div>
+      <div v-else-if="authStore.isAuthenticated" class="navigation__user">
+        <span class="navigation__user-email">{{ authStore.userEmail }}</span>
+        <VButton 
+          @click="handleLogout"
+          variant="ghost"
+          size="sm"
+          class="navigation__logout-button"
+        >
+          Logout
+        </VButton>
+      </div>
+      <VButton 
+        v-else
+        to="/auth"
+        variant="ghost"
+        size="sm"
+        class="navigation__login-button"
+      >
+        Login
+      </VButton>
+    </div>
+
     <!-- Mobile Hamburger Button -->
     <button 
       class="navigation__hamburger"
@@ -33,9 +60,15 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import TopLevelRoutes from '@/router/TopLevelRoutes'
 import VButton from '@/components/ui/VButton.vue'
+import VLoadingSpinner from '@/components/ui/VLoadingSpinner.vue'
 import MobileMenu from './MobileMenu.vue'
+import { useAuthStore } from '@/stores/auth'
+
+const router = useRouter()
+const authStore = useAuthStore()
 
 const routes = TopLevelRoutes.filter(route => !route.hideFromNavigation)
 
@@ -47,6 +80,16 @@ const toggleMobileMenu = () => {
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
+}
+
+const handleLogout = async () => {
+  try {
+    await authStore.signOut()
+    // Redirect to home page after logout
+    router.push('/')
+  } catch (error) {
+    console.error('Logout error:', error)
+  }
 }
 
 defineExpose({
@@ -99,6 +142,56 @@ defineExpose({
       background-color: rgba(255, 255, 255, 0.2) !important;
       font-weight: 600;
       color: white !important;
+    }
+  }
+
+  &__auth {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__user-email {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  &__login-button,
+  &__logout-button {
+    color: white !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    background-color: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
     }
   }
 

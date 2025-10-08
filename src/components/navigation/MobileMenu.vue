@@ -14,13 +14,44 @@
           </VButton>
         </li>
       </ul>
+
+      <!-- Mobile Authentication Section -->
+      <div class="mobile-menu__auth">
+        <div v-if="authStore.loading" class="mobile-menu__loading">
+          <VLoadingSpinner size="sm" />
+        </div>
+        <div v-else-if="authStore.isAuthenticated" class="mobile-menu__user">
+          <div class="mobile-menu__user-info">
+            <span class="mobile-menu__user-email">{{ authStore.userEmail }}</span>
+          </div>
+          <VButton 
+            @click="handleLogout"
+            variant="ghost"
+            class="mobile-menu__logout-button"
+          >
+            Logout
+          </VButton>
+        </div>
+        <VButton 
+          v-else
+          to="/auth"
+          variant="ghost"
+          class="mobile-menu__login-button"
+          @click="closeMenu"
+        >
+          Login
+        </VButton>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import TopLevelRoutes from '@/router/TopLevelRoutes'
 import VButton from '@/components/ui/VButton.vue'
+import VLoadingSpinner from '@/components/ui/VLoadingSpinner.vue'
+import { useAuthStore } from '@/stores/auth'
 
 defineProps<{
   isOpen: boolean
@@ -30,10 +61,24 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const router = useRouter()
+const authStore = useAuthStore()
+
 const routes = TopLevelRoutes.filter(route => !route.hideFromNavigation)
 
 const closeMenu = () => {
   emit('close')
+}
+
+const handleLogout = async () => {
+  try {
+    await authStore.signOut()
+    closeMenu()
+    // Redirect to home page after logout
+    router.push('/')
+  } catch (error) {
+    console.error('Logout error:', error)
+  }
 }
 </script>
 
@@ -142,6 +187,86 @@ const closeMenu = () => {
       &::before {
         opacity: 1;
       }
+    }
+  }
+
+  &__auth {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.6);
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  &__user {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__user-info {
+    text-align: center;
+  }
+
+  &__user-email {
+    color: #6b7280;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  &__login-button,
+  &__logout-button {
+    display: block;
+    width: 100%;
+    color: #374151 !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: transparent !important;
+    border: 1px solid rgba(37, 99, 235, 0.2) !important;
+    text-align: center;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border-radius: 12px;
+    }
+
+    &:hover {
+      color: #1f2937 !important;
+      border-color: rgba(37, 99, 235, 0.4) !important;
+      
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__logout-button {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%) !important;
+    border-color: rgba(239, 68, 68, 0.2) !important;
+    color: #dc2626 !important;
+
+    &:hover {
+      color: #b91c1c !important;
+      border-color: rgba(239, 68, 68, 0.4) !important;
     }
   }
 }

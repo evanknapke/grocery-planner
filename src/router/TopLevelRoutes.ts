@@ -25,13 +25,22 @@ const TopLevelRoutes: RouteRecord[] = [
     path: '/grocery-list',
     name: 'GroceryList',
     title: 'Grocery List',
+    meta: { requiresAuth: true },
     component: () => import('@/pages/GroceryList.vue'),
   },
   {
     path: '/saved-lists',
     name: 'SavedLists',
     title: 'Saved Lists',
+    meta: { requiresAuth: true },
     component: () => import('@/pages/SavedLists.vue')
+  },
+  {
+    path: '/auth',
+    name: 'Auth',
+    title: 'Authentication',
+    hideFromNavigation: true,
+    component: () => import('@/pages/AuthView.vue')
   },
   {
     path: '/:pathMatch(.*)*',

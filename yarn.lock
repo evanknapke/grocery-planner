@@ -826,6 +826,63 @@
   resolved "https://registry.npmjs.org/@sindresorhus/merge-streams/-/merge-streams-4.0.0.tgz"
   integrity sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==
 
+"@supabase/auth-js@2.74.0":
+  version "2.74.0"
+  resolved "https://registry.npmjs.org/@supabase/auth-js/-/auth-js-2.74.0.tgz#a3537944a9a4229a48efbcf4f11a502b1bef5752"
+  integrity sha512-EJYDxYhBCOS40VJvfQ5zSjo8Ku7JbTICLTcmXt4xHMQZt4IumpRfHg11exXI9uZ6G7fhsQlNgbzDhFN4Ni9NnA==
+  dependencies:
+    "@supabase/node-fetch" "2.6.15"
+
+"@supabase/functions-js@2.74.0":
+  version "2.74.0"
+  resolved "https://registry.npmjs.org/@supabase/functions-js/-/functions-js-2.74.0.tgz#aa92139a346fa8bc567e31256a72965ea08da057"
+  integrity sha512-VqWYa981t7xtIFVf7LRb9meklHckbH/tqwaML5P3LgvlaZHpoSPjMCNLcquuLYiJLxnh2rio7IxLh+VlvRvSWw==
+  dependencies:
+    "@supabase/node-fetch" "2.6.15"
+
+"@supabase/node-fetch@2.6.15":
+  version "2.6.15"
+  resolved "https://registry.npmjs.org/@supabase/node-fetch/-/node-fetch-2.6.15.tgz#731271430e276983191930816303c44159e7226c"
+  integrity sha512-1ibVeYUacxWYi9i0cf5efil6adJ9WRyZBLivgjs+AUpewx1F3xPi7gLgaASI2SmIQxPoCEjAsLAzKPgMJVgOUQ==
+  dependencies:
+    whatwg-url "^5.0.0"
+
+"@supabase/postgrest-js@2.74.0":
+  version "2.74.0"
+  resolved "https://registry.npmjs.org/@supabase/postgrest-js/-/postgrest-js-2.74.0.tgz#f83d9d6a1c3a007f8f5fbf6320a879d5cd3bd9b7"
+  integrity sha512-9Ypa2eS0Ib/YQClE+BhDSjx7OKjYEF6LAGjTB8X4HucdboGEwR0LZKctNfw6V0PPIAVjjzZxIlNBXGv0ypIkHw==
+  dependencies:
+    "@supabase/node-fetch" "2.6.15"
+
+"@supabase/realtime-js@2.74.0":
+  version "2.74.0"
+  resolved "https://registry.npmjs.org/@supabase/realtime-js/-/realtime-js-2.74.0.tgz#129aacf0c999f0d370bd38a1ea391cafb9d55528"
+  integrity sha512-K5VqpA4/7RO1u1nyD5ICFKzWKu58bIDcPxHY0aFA7MyWkFd0pzi/XYXeoSsAifnD9p72gPIpgxVXCQZKJg1ktQ==
+  dependencies:
+    "@supabase/node-fetch" "2.6.15"
+    "@types/phoenix" "^1.6.6"
+    "@types/ws" "^8.18.1"
+    ws "^8.18.2"
+
+"@supabase/storage-js@2.74.0":
+  version "2.74.0"
+  resolved "https://registry.npmjs.org/@supabase/storage-js/-/storage-js-2.74.0.tgz#5b6ad04e905b7d1af818f2d2ecf5a18c6825a3e8"
+  integrity sha512-o0cTQdMqHh4ERDLtjUp1/KGPbQoNwKRxUh6f8+KQyjC5DSmiw/r+jgFe/WHh067aW+WU8nA9Ytw9ag7OhzxEkQ==
+  dependencies:
+    "@supabase/node-fetch" "2.6.15"
+
+"@supabase/supabase-js@^2.74.0":
+  version "2.74.0"
+  resolved "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-2.74.0.tgz#7e7b7531378ca18abd834fb182a0379b9c3c320a"
+  integrity sha512-IEMM/V6gKdP+N/X31KDIczVzghDpiPWFGLNjS8Rus71KvV6y6ueLrrE/JGCHDrU+9pq5copF3iCa0YQh+9Lq9Q==
+  dependencies:
+    "@supabase/auth-js" "2.74.0"
+    "@supabase/functions-js" "2.74.0"
+    "@supabase/node-fetch" "2.6.15"
+    "@supabase/postgrest-js" "2.74.0"
+    "@supabase/realtime-js" "2.74.0"
+    "@supabase/storage-js" "2.74.0"
+
 "@ts-morph/common@~0.11.0":
   version "0.11.1"
   resolved "https://registry.npmjs.org/@ts-morph/common/-/common-0.11.1.tgz#281af2a0642b19354d8aa07a0d50dfdb4aa8164e"
@@ -941,6 +998,11 @@
   dependencies:
     undici-types "~7.10.0"
 
+"@types/phoenix@^1.6.6":
+  version "1.6.6"
+  resolved "https://registry.npmjs.org/@types/phoenix/-/phoenix-1.6.6.tgz#3c1ab53fd5a23634b8e37ea72ccacbf07fbc7816"
+  integrity sha512-PIzZZlEppgrpoT2QgbnDU+MMzuR6BbCjllj0bM70lWoejMeNJAxCchxnv7J3XFkI8MpygtRpzXrIlmWUBclP5A==
+
 "@types/qs@*":
   version "6.14.0"
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.14.0.tgz#d8b60cecf62f2db0fb68e5e006077b9178b85de5"
@@ -967,6 +1029,13 @@
     "@types/http-errors" "*"
     "@types/node" "*"
     "@types/send" "*"
+
+"@types/ws@^8.18.1":
+  version "8.18.1"
+  resolved "https://registry.npmjs.org/@types/ws/-/ws-8.18.1.tgz#48464e4bf2ddfd17db13d845467f6070ffea4aa9"
+  integrity sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==
+  dependencies:
+    "@types/node" "*"
 
 "@typescript-eslint/eslint-plugin@8.42.0":
   version "8.42.0"
@@ -4020,6 +4089,11 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
   integrity sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==
+
+ws@^8.18.2:
+  version "8.18.3"
+  resolved "https://registry.npmjs.org/ws/-/ws-8.18.3.tgz#b56b88abffde62791c639170400c93dcb0c95472"
+  integrity sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==
 
 wsl-utils@^0.1.0:
   version "0.1.0"
